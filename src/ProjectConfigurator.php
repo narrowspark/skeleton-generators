@@ -3,27 +3,39 @@ declare(strict_types=1);
 namespace Narrowspark\Project\Configurator;
 
 use Composer\Composer;
+use Composer\EventDispatcher\EventSubscriberInterface;
 use Composer\IO\IOInterface;
-use Narrowspark\Discovery\Common\Configurator\AbstractConfigurator;
-use Narrowspark\Discovery\Common\Contract\Package;
+use Composer\Plugin\PluginInterface;
+use Composer\Script\Event;
+use Composer\Script\Event as ScriptEvent;
+use Composer\Script\ScriptEvents;
+use Narrowspark\Project\Configurator\Generator\ConsoleGenerator;
+use Narrowspark\Project\Configurator\Generator\FrameworkGenerator;
+use Narrowspark\Project\Configurator\Generator\MicroGenerator;
+use Symfony\Component\Filesystem\Filesystem;
 
-final class ProjectConfigurator extends AbstractConfigurator
+final class ProjectConfigurator implements PluginInterface, EventSubscriberInterface
 {
     /**
-     * This should be only used if this class is tested.
+     * A composer instance.
      *
-     * @internal
+     * @var \Composer\Composer
+     */
+    private $composer;
+
+    /**
+     * The composer io implementation.
+     *
+     * @var \Composer\IO\IOInterface
+     */
+    private $io;
+
+    /**
+     * Check if the the plugin is activated.
      *
      * @var bool
      */
-    public static $isTest = false;
-
-    /**
-     * Path to the resource dir.
-     *
-     * @var string
-     */
-    private $resourcePath;
+    private static $activated = true;
 
     /**
      * @var string
@@ -35,46 +47,149 @@ final class ProjectConfigurator extends AbstractConfigurator
     (defaults to <comment>f</comment>): ';
 
     /**
-     * {@inheritdoc}
+     * Key to class mapper.
+     *
+     * @var array
      */
-    public function __construct(Composer $composer, IOInterface $io, array $options = [])
-    {
-        parent::__construct($composer, $io, $options);
+    private static $class = [
+        'f' => FrameworkGenerator::class,
+        'c' => ConsoleGenerator::class,
+        'm' => MicroGenerator::class,
+    ];
 
-        $this->resourcePath = __DIR__ . '/../../Resource';
+    /**
+     * Provide composer event listeners.
+     *
+     * This particular combination will ensure that the plugin works under each
+     * of the following scenarios:
+     *
+     * - create-project
+     * - install, with or without a composer.lock
+     * - update, with or without a composer.lock
+     *
+     * After any of the above have run at least once, the plugin will uninstall
+     * itself.
+     *
+     * @return array
+     */
+    public static function getSubscribedEvents()
+    {
+        if (! self::$activated) {
+            return [];
+        }
+
+        $subscribers = [
+            ['installOptionalDependencies', 1024],
+            ['uninstallPlugin'],
+        ];
+
+        return [
+            ScriptEvents::POST_INSTALL_CMD        => $subscribers,
+            ScriptEvents::POST_UPDATE_CMD         => $subscribers,
+            ScriptEvents::POST_CREATE_PROJECT_CMD => ['onPostCreateProject', 1024],
+        ];
     }
 
     /**
-     * Return the configurator key name.
+     * Activate the plugin.
+     *
+     * @param Composer    $composer
+     * @param IOInterface $io
+     */
+    public function activate(Composer $composer, IOInterface $io)
+    {
+        if (($errorMessage = $this->getErrorMessage()) !== null) {
+            self::$activated = false;
+
+            $io->writeError('<warning>Narrowspark Project-Configurator has been disabled. ' . $errorMessage . '</warning>');
+
+            return;
+        }
+
+        $this->composer = $composer;
+        $this->io       = $io;
+    }
+
+    /**
+     * Execute on composer create project event.
+     *
+     * @param \Composer\Script\Event $event
+     *
+     * @throws \Exception
+     */
+    public function onPostCreateProject(Event $event): void
+    {
+        $answer = $this->io->askAndValidate(
+            self::$question,
+            [$this, 'validateProjectQuestionAnswerValue'],
+            null,
+            'f'
+        );
+
+        /** @var \Narrowspark\Project\Configurator\Generator\AbstractGenerator $generator */
+        $generator = new self::$class[$answer](new Filesystem(), $this->composer->getPackage()->getExtra());
+        $generator->generate();
+    }
+
+    /**
+     * Install optional dependencies, if any.
+     *
+     * @param ScriptEvent $event
+     */
+    public function installOptionalDependencies(ScriptEvent $event)
+    {
+        (new Installer($this->composer, $this->io))->install();
+    }
+
+    /**
+     * Remove the installer after project installation.
+     *
+     * @param ScriptEvent $event
+     */
+    public function uninstallPlugin(ScriptEvent $event)
+    {
+        (new Uninstaller($this->composer, $this->io))->uninstall();
+    }
+
+    /**
+     * Validate given input answer.
+     *
+     * @param null|string $value
+     *
+     * @throws \InvalidArgumentException
      *
      * @return string
      */
-    public static function getName(): string
+    public function validateProjectQuestionAnswerValue(?string $value): string
     {
-        return 'narrowspark-project';
+        if ($value === null) {
+            return 'f';
+        }
+
+        $value = \mb_strtolower($value[0]);
+
+        if (! \in_array($value, ['f', 'm', 'c'], true)) {
+            throw new \InvalidArgumentException('Invalid choice.');
+        }
+
+        return $value;
     }
 
     /**
-     * Configure the application after the package settings.
+     * @codeCoverageIgnore
      *
-     * @param \Narrowspark\Discovery\Common\Contract\Package $package
+     * Check if project-configurator can be activated.
      *
-     * @return void
+     * @return null|string
      */
-    public function configure(Package $package): void
+    private function getErrorMessage(): ?string
     {
-        // TODO: Implement configure() method.
-    }
+        $errorMessage = null;
 
-    /**
-     * Unconfigure the application after the package settings.
-     *
-     * @param \Narrowspark\Discovery\Common\Contract\Package $package
-     *
-     * @return void
-     */
-    public function unconfigure(Package $package): void
-    {
-        $this->write('Project cant be unconfigured');
+        if (! \class_exists('\Narrowspark\Discovery')) {
+            $errorMessage = 'This package only works with the [narrowspark/discovery] package. Please add [narrowspark/discovery] to your composer.json file.';
+        }
+
+        return $errorMessage;
     }
 }

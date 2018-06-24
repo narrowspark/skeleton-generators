@@ -1,10 +1,12 @@
 {
     "name": "narrowspark/project-configurator",
-    "type": "discovery-configurator",
-    "description": "A Discovery project configurator for the narrowspark skeleton.",
+    "type": "composer-plugin",
+    "description": "The project configurator for the narrowspark skeleton is a discovery extension.",
     "keywords": [
         "narrowspark",
+        "viserio",
         "discovery",
+        "composer-plugin",
         "configurator",
         "http",
         "console",
@@ -21,13 +23,20 @@
         }
     ],
     "require": {
-        "php": "^7.1",
-        "narrowspark/discovery-common": "^0.1.3",
-        "nette/php-generator": "^3.1"
+        "php": "^7.2",
+        "ext-mbstring": "*",
+        "composer-plugin-api": "^1.0"
     },
     "require-dev": {
+        "cakephp/chronos": "^1.2",
         "composer/composer": "^1.6.0",
+        "mockery/mockery": "^1.1",
+        "narrowspark/discovery-common": "^0.1.3",
         "narrowspark/php-cs-fixer-config": "^3.0.1",
+        "narrowspark/testing-helper": "^6.0",
+        "phpstan/phpstan": "^0.9.0",
+        "phpstan/phpstan-phpunit": "^0.9.0",
+        "phpstan/phpstan-strict-rules": "^0.9.0",
         "phpunit/phpunit": "^7.0.0"
     },
     "config": {
@@ -37,7 +46,8 @@
     "extra": {
         "branch-alias": {
             "dev-master": "1.0-dev"
-        }
+        },
+        "class": "Narrowspark\\Project\\Configurator\\ProjectConfigurator"
     },
     "autoload": {
         "psr-4": {
