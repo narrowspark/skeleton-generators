@@ -5,7 +5,10 @@ namespace Narrowspark\Project\Configurator\Tests\Generator;
 use Narrowspark\Project\Configurator\Generator\MicroGenerator;
 use Symfony\Component\Filesystem\Filesystem;
 
-class MicroGeneratorTest extends AbstractHttpGeneratorTest
+/**
+ * @internal
+ */
+final class MicroGeneratorTest extends AbstractHttpGeneratorTest
 {
     /**
      * {@inheritdoc}

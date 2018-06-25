@@ -31,12 +31,12 @@ final class Uninstaller
     public function __construct(Composer $composer, IOInterface $io)
     {
         $this->composer = $composer;
-        $this->io = $io;
+        $this->io       = $io;
     }
 
     public function uninstall(): void
     {
-        $this->io->write(sprintf('<info>Removing %s...</info>', Util::PLUGIN_NAME));
+        $this->io->write(\sprintf('<info>Removing %s...</info>', Util::PLUGIN_NAME));
         $this->removePluginInstall();
         $this->removePluginFromComposer();
         $this->io->write('<info>    Complete!</info>');
@@ -50,20 +50,21 @@ final class Uninstaller
     private function removePluginInstall(): void
     {
         $repository = $this->composer->getRepositoryManager()->getLocalRepository();
-        $package = $repository->findPackage(Util::PLUGIN_NAME, '*');
+        $package    = $repository->findPackage(Util::PLUGIN_NAME, '*');
 
         if (! $package) {
             $this->io->write('<info>    Package not installed; nothing to do.</info>');
+
             return;
         }
 
         $this->composer->getInstallationManager()->uninstall($repository, new UninstallOperation($package));
-        $this->io->write(sprintf('<info>    Removed plugin %s.</info>', Util::PLUGIN_NAME));
+        $this->io->write(\sprintf('<info>    Removed plugin %s.</info>', Util::PLUGIN_NAME));
         $this->updateLockFile($repository);
     }
 
     /**
-     * Remove the plugin from the composer.json
+     * Remove the plugin from the composer.json.
      *
      * @throws \Exception
      *
@@ -73,9 +74,9 @@ final class Uninstaller
     {
         $this->io->write('<info>    Removing from composer.json</info>');
 
-        /** @var \Composer\Json\JsonFile $composerJson *//
+        /** @var \Composer\Json\JsonFile $composerJson */
         [$composerJson] = Util::getComposerJsonFileAndManipulator();
-        $json = $composerJson->read();
+        $json           = $composerJson->read();
 
         unset($json['require'][Util::PLUGIN_NAME]);
 
@@ -83,13 +84,13 @@ final class Uninstaller
     }
 
     /**
-     * Update the lock file
+     * Update the lock file.
      *
      * @param RepositoryInterface $repository
      */
     private function updateLockFile(RepositoryInterface $repository)
     {
-        $locker = $this->composer->getLocker();
+        $locker      = $this->composer->getLocker();
         $allPackages = Collection::create($repository->getPackages())
             ->reject(function ($package) {
                 return Util::PLUGIN_NAME === $package->getName();
@@ -101,11 +102,11 @@ final class Uninstaller
             return $package->isDev();
         });
         $packages = $allPackages->filter(function ($package) {
-            return (! $package instanceof AliasPackage && ! $package->isDev());
+            return ! $package instanceof AliasPackage && ! $package->isDev();
         });
 
-        $platformReqs = $locker->getPlatformRequirements(false);
-        $platformDevReqs = array_diff($locker->getPlatformRequirements(true), $platformReqs);
+        $platformReqs    = $locker->getPlatformRequirements(false);
+        $platformDevReqs = \array_diff($locker->getPlatformRequirements(true), $platformReqs);
 
         $result = $locker->setLockData(
             $packages->toArray(),

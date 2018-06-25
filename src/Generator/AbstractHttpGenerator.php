@@ -37,11 +37,11 @@ abstract class AbstractHttpGenerator extends ConsoleGenerator
         $array    = parent::getFiles();
         $httpPath = $this->folderPaths['app'] . \DIRECTORY_SEPARATOR . 'Http' . \DIRECTORY_SEPARATOR;
 
-        $array[$this->folderPaths['routes'] . \DIRECTORY_SEPARATOR . 'api.php'] = '<?php' . \PHP_EOL . 'declare(strict_types=1);' . \PHP_EOL;
-        $array[$this->folderPaths['routes'] . \DIRECTORY_SEPARATOR . 'web.php'] = '<?php' . \PHP_EOL . 'declare(strict_types=1);' . \PHP_EOL;
-        $array[$httpPath . 'Kernel.php']                                        = $this->getHttpKernelClass();
+        $array[$this->folderPaths['routes'] . \DIRECTORY_SEPARATOR . 'api.php']             = '<?php' . \PHP_EOL . 'declare(strict_types=1);' . \PHP_EOL;
+        $array[$this->folderPaths['routes'] . \DIRECTORY_SEPARATOR . 'web.php']             = '<?php' . \PHP_EOL . 'declare(strict_types=1);' . \PHP_EOL;
+        $array[$httpPath . 'Kernel.php']                                                    = $this->getHttpKernelClass();
         $array[$httpPath . 'Controller' . \DIRECTORY_SEPARATOR . 'AbstractController.php']  = $this->getControllerClass();
-        $array[$this->folderPaths['public'] . DIRECTORY_SEPARATOR . 'index.php'] = \file_get_contents($this->resourcePath . DIRECTORY_SEPARATOR . 'index.php.template');
+        $array[$this->folderPaths['public'] . \DIRECTORY_SEPARATOR . 'index.php']           = \file_get_contents($this->resourcePath . \DIRECTORY_SEPARATOR . 'index.php.template');
 
         if (! static::$isTest) {
             $array['phpunit.xml'] = $this->getPhpunitXmlContent();
@@ -74,7 +74,7 @@ abstract class AbstractHttpGenerator extends ConsoleGenerator
             'narrowspark/http-status'  => '^4.0.0',
             'symfony/process'          => '^4.0.0',
             'viserio/http-factory'     => 'dev-master',
-            'viserio/routing'          => 'dev-master'
+            'viserio/routing'          => 'dev-master',
         ];
     }
 
