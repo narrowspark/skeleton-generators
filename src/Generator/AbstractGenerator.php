@@ -4,7 +4,6 @@ namespace Narrowspark\Project\Configurator\Generator;
 
 use Cake\Chronos\Chronos;
 use Narrowspark\Discovery\Common\Traits\ExpandTargetDirTrait;
-use Nette\PhpGenerator\PhpNamespace;
 use Symfony\Component\Filesystem\Filesystem;
 
 abstract class AbstractGenerator
@@ -64,6 +63,7 @@ abstract class AbstractGenerator
         $testsPath     = self::expandTargetDir($this->options, '%TESTS_DIR%');
         $resourcesPath = self::expandTargetDir($this->options, '%RESOURCES_DIR%');
         $routesPath    = self::expandTargetDir($this->options, '%ROUTES_DIR%');
+        $publicPath    = self::expandTargetDir($this->options, '%PUBLIC_DIR%');
         $appPath       = self::expandTargetDir($this->options, '%APP_DIR%');
 
         $this->folderPaths = [
@@ -77,6 +77,7 @@ abstract class AbstractGenerator
             'lang'      => $resourcesPath . \DIRECTORY_SEPARATOR . 'lang',
             'routes'    => $routesPath,
             'app'       => $appPath,
+            'public'    => $publicPath,
         ];
     }
 
@@ -188,14 +189,17 @@ abstract class AbstractGenerator
      */
     private function generateAbstractTestCaseClass(): string
     {
-        $namespace = new PhpNamespace('Tests');
-        $namespace->addUse('PHPUnit\Framework\TestCase', 'BaseTestCase');
+        return <<<'PHP'
+<?php
+declare(strict_types=1);
+namespace Tests;
 
-        $class = $namespace->addClass('AbstractTestCase');
-        $class->setAbstract()
-            ->setExtends('PHPUnit\Framework\TestCase');
+use PHPUnit\Framework\TestCase as BaseTestCase;
 
-        return '<?php' . \PHP_EOL . 'declare(strict_types=1);' . \PHP_EOL . $namespace->__toString();
+abstract class AbstractTestCase extends BaseTestCase
+{
+}
+PHP;
     }
 
     /**

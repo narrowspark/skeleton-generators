@@ -2,8 +2,6 @@
 declare(strict_types=1);
 namespace Narrowspark\Project\Configurator\Generator;
 
-use Nette\PhpGenerator\PhpNamespace;
-
 class ConsoleGenerator extends AbstractGenerator
 {
     /**
@@ -43,7 +41,7 @@ class ConsoleGenerator extends AbstractGenerator
      */
     protected function getDependencies(): array
     {
-        // TODO: Implement getDependencies() method.
+        return [];
     }
 
     /**
@@ -51,7 +49,7 @@ class ConsoleGenerator extends AbstractGenerator
      */
     protected function getDevDependencies(): array
     {
-        // TODO: Implement getDevDependencies() method.
+        return [];
     }
 
     /**
@@ -61,13 +59,17 @@ class ConsoleGenerator extends AbstractGenerator
      */
     private function getConsoleKernelClass(): string
     {
-        $namespace = new PhpNamespace('App\Http');
-        $namespace->addUse('Viserio\Component\Foundation\Console\Kernel', 'ConsoleKernel');
+        return <<<'PHP'
+<?php
+declare(strict_types=1);
+namespace App\Console;
 
-        $class = $namespace->addClass('Kernel');
-        $class->setFinal()
-            ->setExtends('Viserio\Component\Foundation\Console\Kernel');
+use Viserio\Component\Foundation\Console\Kernel as ConsoleKernel;
 
-        return '<?php' . \PHP_EOL . 'declare(strict_types=1);' . \PHP_EOL . $namespace->__toString();
+class Kernel extends ConsoleKernel
+{
+}
+
+PHP;
     }
 }

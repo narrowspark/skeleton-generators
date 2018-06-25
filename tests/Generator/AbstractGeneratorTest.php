@@ -16,6 +16,11 @@ abstract class AbstractGeneratorTest extends TestCase
     protected $path;
 
     /**
+     * @var \Narrowspark\Project\Configurator\Generator\AbstractGenerator
+     */
+    protected $generator;
+
+    /**
      * {@inheritdoc}
      */
     protected function setUp(): void

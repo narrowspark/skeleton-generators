@@ -11,11 +11,6 @@ use Symfony\Component\Filesystem\Filesystem;
 final class ConsoleGeneratorTest extends AbstractGeneratorTest
 {
     /**
-     * @var \Narrowspark\Project\Configurator\Generator\ConsoleGenerator
-     */
-    private $generator;
-
-    /**
      * {@inheritdoc}
      */
     protected function setUp(): void
@@ -37,7 +32,12 @@ final class ConsoleGeneratorTest extends AbstractGeneratorTest
     {
         parent::tearDown();
 
-        \unlink(__DIR__ . \DIRECTORY_SEPARATOR . '..' . \DIRECTORY_SEPARATOR . '..' . \DIRECTORY_SEPARATOR . 'cerebro');
+        @\unlink(__DIR__ . \DIRECTORY_SEPARATOR . '..' . \DIRECTORY_SEPARATOR . '..' . \DIRECTORY_SEPARATOR . 'cerebro');
+    }
+
+    public function testProjectType(): void
+    {
+        $this->assertSame('console', $this->generator->projectType());
     }
 
     public function testGenerate(): void
@@ -48,23 +48,24 @@ final class ConsoleGeneratorTest extends AbstractGeneratorTest
 
         $this->arrangeAssertDirectoryExists($config, ['resources-dir', 'public-dir']);
 
-        $this->assertDirectoryExists($config['app-dir'] . '/Console');
-        $this->assertDirectoryExists($config['app-dir'] . '/Provider');
-        $this->assertDirectoryNotExists($config['app-dir'] . '/Http/Middleware');
-        $this->assertFileNotExists($config['app-dir'] . '/Http/Controller/Controller.php');
+        $this->assertDirectoryExists($config['app-dir'] . \DIRECTORY_SEPARATOR . 'Console');
+        $this->assertFileExists($config['app-dir'] . \DIRECTORY_SEPARATOR . 'Console' . \DIRECTORY_SEPARATOR . 'Kernel.php');
+        $this->assertDirectoryExists($config['app-dir'] . \DIRECTORY_SEPARATOR . 'Provider');
+        $this->assertDirectoryNotExists($config['app-dir'] . \DIRECTORY_SEPARATOR . 'Http/Middleware');
+        $this->assertFileNotExists($config['app-dir'] . \DIRECTORY_SEPARATOR . 'Http/Controller/Controller.php');
 
-        $this->assertFileNotExists($config['routes-dir'] . '/api.php');
-        $this->assertFileExists($config['routes-dir'] . '/console.php');
-        $this->assertFileNotExists($config['routes-dir'] . '/web.php');
+        $this->assertFileNotExists($config['routes-dir'] . \DIRECTORY_SEPARATOR . 'api.php');
+        $this->assertFileExists($config['routes-dir'] . \DIRECTORY_SEPARATOR . 'console.php');
+        $this->assertFileNotExists($config['routes-dir'] . \DIRECTORY_SEPARATOR . 'web.php');
 
-        $this->assertDirectoryNotExists($this->path . '/resources/lang');
-        $this->assertDirectoryNotExists($this->path . '/resources/views');
+        $this->assertDirectoryNotExists($this->path . \DIRECTORY_SEPARATOR . 'resources/lang');
+        $this->assertDirectoryNotExists($this->path . \DIRECTORY_SEPARATOR . 'resources/views');
 
-        $this->assertFileExists($config['storage-dir'] . '/framework/.gitignore');
-        $this->assertFileExists($config['storage-dir'] . '/logs/.gitignore');
+        $this->assertFileExists($config['storage-dir'] . \DIRECTORY_SEPARATOR . 'framework/.gitignore');
+        $this->assertFileExists($config['storage-dir'] . \DIRECTORY_SEPARATOR . 'logs/.gitignore');
 
-        $this->assertDirectoryNotExists($config['tests-dir'] . '/Feature');
-        $this->assertDirectoryExists($config['tests-dir'] . '/Unit');
-        $this->assertFileExists($config['tests-dir'] . '/AbstractTestCase.php');
+        $this->assertDirectoryNotExists($config['tests-dir'] . \DIRECTORY_SEPARATOR . 'Feature');
+        $this->assertDirectoryExists($config['tests-dir'] . \DIRECTORY_SEPARATOR . 'Unit');
+        $this->assertFileExists($config['tests-dir'] . \DIRECTORY_SEPARATOR . 'AbstractTestCase.php');
     }
 }

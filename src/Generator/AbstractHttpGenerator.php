@@ -2,8 +2,6 @@
 declare(strict_types=1);
 namespace Narrowspark\Project\Configurator\Generator;
 
-use Nette\PhpGenerator\PhpNamespace;
-
 abstract class AbstractHttpGenerator extends ConsoleGenerator
 {
     /**
@@ -16,6 +14,7 @@ abstract class AbstractHttpGenerator extends ConsoleGenerator
         return \array_merge(
             parent::getDirectories(),
             [
+                $this->folderPaths['public'],
                 $this->folderPaths['tests'] . \DIRECTORY_SEPARATOR . 'Feature',
                 $this->folderPaths['resources'],
                 $this->folderPaths['views'],
@@ -41,7 +40,8 @@ abstract class AbstractHttpGenerator extends ConsoleGenerator
         $array[$this->folderPaths['routes'] . \DIRECTORY_SEPARATOR . 'api.php'] = '<?php' . \PHP_EOL . 'declare(strict_types=1);' . \PHP_EOL;
         $array[$this->folderPaths['routes'] . \DIRECTORY_SEPARATOR . 'web.php'] = '<?php' . \PHP_EOL . 'declare(strict_types=1);' . \PHP_EOL;
         $array[$httpPath . 'Kernel.php']                                        = $this->getHttpKernelClass();
-        $array[$httpPath . 'Controller' . \DIRECTORY_SEPARATOR . 'Kernel.php']  = $this->getControllerClass();
+        $array[$httpPath . 'Controller' . \DIRECTORY_SEPARATOR . 'AbstractController.php']  = $this->getControllerClass();
+        $array[$this->folderPaths['public'] . DIRECTORY_SEPARATOR . 'index.php'] = \file_get_contents($this->resourcePath . DIRECTORY_SEPARATOR . 'index.php.template');
 
         if (! static::$isTest) {
             $array['phpunit.xml'] = $this->getPhpunitXmlContent();
@@ -61,6 +61,21 @@ abstract class AbstractHttpGenerator extends ConsoleGenerator
         $feature        = "        <testsuite name=\"Feature\">\n            <directory suffix=\"Test.php\">./tests/Feature</directory>\n        </testsuite>\n";
 
         return $this->doInsertStringBeforePosition($phpunitContent, $feature, \mb_strpos($phpunitContent, '</testsuites>'));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getDependencies(): array
+    {
+        return [
+            'cakephp/chronos'          => '^1.0.4',
+            'narrowspark/http-emitter' => '^0.6.0',
+            'narrowspark/http-status'  => '^4.0.0',
+            'symfony/process'          => '^4.0.0',
+            'viserio/http-factory'     => 'dev-master',
+            'viserio/routing'          => 'dev-master'
+        ];
     }
 
     /**
@@ -84,22 +99,31 @@ abstract class AbstractHttpGenerator extends ConsoleGenerator
      */
     private function getHttpKernelClass(): string
     {
-        $namespace = new PhpNamespace('App\Http');
-        $namespace->addUse('Viserio\Component\Foundation\Http\Kernel', 'HttpKernel');
+        return <<<'PHP'
+<?php
+declare(strict_types=1);
+namespace App\Http;
 
-        $class = $namespace->addClass('Kernel');
-        $class->setFinal()
-            ->setExtends('HttpKernel');
-        $property = $class->addProperty('middlewareGroups', []);
-        $property->setVisibility('protected')
-            ->setComment("The application's route middleware groups.\n")
-            ->setComment('@var array');
-        $property2 = $class->addProperty('middleware', []);
-        $property2->setVisibility('protected')
-            ->setComment("The application's route middleware.\n")
-            ->setComment('@var array');
+use Viserio\Component\Foundation\Http\Kernel as HttpKernel;
 
-        return '<?php' . \PHP_EOL . 'declare(strict_types=1);' . \PHP_EOL . $class->__toString();
+class Kernel extends HttpKernel
+{
+    /**
+     * The application's route middleware groups.
+     *
+     * @var array
+     */
+    protected $middlewareGroups = [];
+
+    /**
+     * The application's route middleware.
+     *
+     * @var array
+     */
+    protected $middleware = [];
+}
+
+PHP;
     }
 
     /**
@@ -109,12 +133,17 @@ abstract class AbstractHttpGenerator extends ConsoleGenerator
      */
     private function getControllerClass(): string
     {
-        $namespace = new PhpNamespace('App\Http\Controller');
-        $namespace->addUse('Viserio\Component\Routing\Controller', 'BaseController');
+        return <<<'PHP'
+<?php
+declare(strict_types=1);
+namespace App\Http\Controller;
 
-        $class = $namespace->addClass('Controller');
-        $class->setExtends('BaseController');
+use Viserio\Component\Routing\Controller as BaseController;
 
-        return '<?php' . \PHP_EOL . 'declare(strict_types=1);' . \PHP_EOL . $class->__toString();
+abstract class AbstractController extends BaseController
+{
+}
+
+PHP;
     }
 }
