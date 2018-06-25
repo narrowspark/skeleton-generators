@@ -249,6 +249,6 @@ PHP;
      */
     private function getPhpunitXml(): string
     {
-        return \file_get_contents($this->resourcePath . \DIRECTORY_SEPARATOR . 'phpunit.xml.template');
+        return (string) \file_get_contents($this->resourcePath . \DIRECTORY_SEPARATOR . 'phpunit.xml.template');
     }
 }

@@ -25,6 +25,8 @@ final class Uninstaller
     private $io;
 
     /**
+     * Create a new Uninstaller instance.
+     *
      * @param \Composer\Composer       $composer
      * @param \Composer\IO\IOInterface $io
      */
