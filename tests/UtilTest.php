@@ -7,18 +7,21 @@ use Composer\Json\JsonManipulator;
 use Narrowspark\Project\Configurator\Util;
 use PHPUnit\Framework\TestCase;
 
-class UtilTest extends TestCase
+/**
+ * @internal
+ */
+final class UtilTest extends TestCase
 {
     public function getPluginName(): void
     {
-        $this->assertSame('narrowspark/project-configurator', Util::PLUGIN_NAME);
+        static::assertSame('narrowspark/project-configurator', Util::PLUGIN_NAME);
     }
 
     public function testGetComposerJsonFileAndManipulator(): void
     {
         [$json, $manipulator] = Util::getComposerJsonFileAndManipulator();
 
-        $this->assertInstanceOf(JsonFile::class, $json);
-        $this->assertInstanceOf(JsonManipulator::class, $manipulator);
+        static::assertInstanceOf(JsonFile::class, $json);
+        static::assertInstanceOf(JsonManipulator::class, $manipulator);
     }
 }

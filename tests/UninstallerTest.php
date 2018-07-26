@@ -4,7 +4,9 @@ namespace Narrowspark\Project\Configurator\Tests;
 
 use PHPUnit\Framework\TestCase;
 
-class UninstallerTest extends TestCase
+/**
+ * @internal
+ */
+final class UninstallerTest extends TestCase
 {
-
 }

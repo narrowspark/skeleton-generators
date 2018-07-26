@@ -72,7 +72,7 @@ final class ProjectConfigurator implements PluginInterface, EventSubscriberInter
      *
      * @return array
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         if (! self::$activated) {
             return [];
