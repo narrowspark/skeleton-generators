@@ -186,7 +186,7 @@ final class ProjectConfigurator implements PluginInterface, EventSubscriberInter
     {
         $errorMessage = null;
 
-        if (! \class_exists('\Narrowspark\Discovery')) {
+        if (! \class_exists('\Narrowspark\Discovery\Discovery')) {
             $errorMessage = 'This package only works with the [narrowspark/discovery] package. Please add [narrowspark/discovery] to your composer.json file.';
         }
 
