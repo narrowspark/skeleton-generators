@@ -37,7 +37,7 @@ final class ConsoleGeneratorTest extends AbstractGeneratorTest
 
     public function testProjectType(): void
     {
-        static::assertSame('console', $this->generator->projectType());
+        static::assertSame('console', $this->generator->getSkeletonType());
     }
 
     public function testGenerate(): void

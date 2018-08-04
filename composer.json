@@ -1,18 +1,18 @@
 {
-    "name": "narrowspark/project-configurator",
-    "type": "composer-plugin",
-    "description": "The project configurator for the narrowspark skeleton is a discovery extension.",
+    "name": "narrowspark/skeleton-generators",
+    "type": "automatic-skeleton",
+    "description": "The narrowspark skeleton generators.",
     "keywords": [
         "narrowspark",
         "viserio",
-        "discovery",
-        "composer-plugin",
-        "configurator",
+        "automatic",
+        "skeleton",
+        "generator",
         "http",
         "console",
         "full-framework"
     ],
-    "homepage": "https://github.com/narrowspark/project-configurator",
+    "homepage": "https://github.com/narrowspark/skeleton-generators",
     "license": "MIT",
     "authors": [
         {
@@ -24,17 +24,15 @@
     ],
     "require": {
         "php": "^7.2",
-        "ext-mbstring": "*",
-        "composer-plugin-api": "^1.0"
+        "ext-mbstring": "*"
     },
     "require-dev": {
         "cakephp/chronos": "^1.2",
-        "composer/composer": "^1.6.0",
         "mockery/mockery": "^1.1",
-        "narrowspark/discovery-common": "^0.1.6",
-        "narrowspark/coding-standard": "^1.0.0",
-        "narrowspark/testing-helper": "^6.0",
-        "phpunit/phpunit": "^7.0.0"
+        "narrowspark/automatic": "dev-issue-29",
+        "narrowspark/coding-standard": "^1.1.0",
+        "narrowspark/testing-helper": "^7.0",
+        "phpunit/phpunit": "^7.2.0"
     },
     "config": {
         "optimize-autoloader": true,
@@ -43,12 +41,11 @@
     "extra": {
         "branch-alias": {
             "dev-master": "1.0-dev"
-        },
-        "class": "Narrowspark\\Project\\Configurator\\ProjectConfigurator"
+        }
     },
     "autoload": {
         "psr-4": {
-            "Narrowspark\\Project\\Configurator\\": "src/"
+            "Narrowspark\\Skeleton\\Generator\\": "src/"
         },
         "exclude-from-classmap": [
             "/tests/"
@@ -56,7 +53,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Narrowspark\\Project\\Configurator\\Tests\\": "tests/"
+            "Narrowspark\\Skeleton\\Generator\\Tests\\": "tests/"
         }
     },
     "minimum-stability": "dev",
@@ -65,10 +62,11 @@
         "coverage": "phpunit --coverage-html=\"build/logs\"",
         "cs": "php-cs-fixer fix",
         "phpstan": "phpstan analyse -c phpstan.neon -l 7 src --memory-limit=-1",
-        "test": "phpunit"
+        "test": "phpunit",
+        "changelog":  "changelog-generator generate --config=\".changelog\" --file --prepend"
     },
     "support": {
-        "issues": "https://github.com/narrowspark/http-status/issues",
-        "source": "https://github.com/narrowspark/http-status"
+        "issues": "https://github.com/narrowspark/skeleton-generators/issues",
+        "source": "https://github.com/narrowspark/skeleton-generators"
     }
 }

@@ -9,7 +9,7 @@ final class FrameworkGenerator extends AbstractHttpGenerator
      *
      * @return string
      */
-    public function projectType(): string
+    public function getSkeletonType(): string
     {
         return 'framework';
     }

@@ -5,6 +5,21 @@ namespace Narrowspark\Project\Configurator\Generator;
 abstract class AbstractHttpGenerator extends ConsoleGenerator
 {
     /**
+     * {@inheritdoc}
+     */
+    public function getDependencies(): array
+    {
+        return [
+            'cakephp/chronos'          => '^1.0.4',
+            'narrowspark/http-emitter' => '^0.6.0',
+            'narrowspark/http-status'  => '^4.1.0',
+            'symfony/process'          => '^4.1.0',
+            'viserio/http-factory'     => 'dev-master',
+            'viserio/routing'          => 'dev-master',
+        ];
+    }
+
+    /**
      * Returns all directories that should be generated.
      *
      * @return string[]
@@ -57,25 +72,10 @@ abstract class AbstractHttpGenerator extends ConsoleGenerator
      */
     protected function getPhpunitXmlContent(): string
     {
-        $phpunitContent = \file_get_contents($this->resourcePath . \DIRECTORY_SEPARATOR . 'phpunit.xml.template');
+        $phpunitContent = (string) \file_get_contents($this->resourcePath . \DIRECTORY_SEPARATOR . 'phpunit.xml.template');
         $feature        = "        <testsuite name=\"Feature\">\n            <directory suffix=\"Test.php\">./tests/Feature</directory>\n        </testsuite>\n";
 
-        return $this->doInsertStringBeforePosition($phpunitContent, $feature, \mb_strpos($phpunitContent, '</testsuites>'));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getDependencies(): array
-    {
-        return [
-            'cakephp/chronos'          => '^1.0.4',
-            'narrowspark/http-emitter' => '^0.6.0',
-            'narrowspark/http-status'  => '^4.0.0',
-            'symfony/process'          => '^4.0.0',
-            'viserio/http-factory'     => 'dev-master',
-            'viserio/routing'          => 'dev-master',
-        ];
+        return $this->doInsertStringBeforePosition($phpunitContent, $feature, (int) \mb_strpos($phpunitContent, '</testsuites>'));
     }
 
     /**

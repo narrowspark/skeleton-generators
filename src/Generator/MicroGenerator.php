@@ -9,7 +9,7 @@ final class MicroGenerator extends AbstractHttpGenerator
      *
      * @return string
      */
-    public function projectType(): string
+    public function getSkeletonType(): string
     {
         return 'micro';
     }

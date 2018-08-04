@@ -3,35 +3,13 @@ declare(strict_types=1);
 namespace Narrowspark\Project\Configurator\Generator;
 
 use Cake\Chronos\Chronos;
-use Narrowspark\Discovery\Common\Traits\ExpandTargetDirTrait;
+use Narrowspark\Automatic\Common\Generator\AbstractGenerator as BaseAbstractConfigurator;
+use Narrowspark\Automatic\Common\Traits\ExpandTargetDirTrait;
 use Symfony\Component\Filesystem\Filesystem;
 
-abstract class AbstractGenerator
+abstract class AbstractGenerator extends BaseAbstractConfigurator
 {
     use ExpandTargetDirTrait;
-
-    /**
-     * This should be only used if this class is tested.
-     *
-     * @internal
-     *
-     * @var bool
-     */
-    public static $isTest = false;
-
-    /**
-     * A Filesystem instance.
-     *
-     * @var \Symfony\Component\Filesystem\Filesystem
-     */
-    protected $filesystem;
-
-    /**
-     * The composer extra options data.
-     *
-     * @var array
-     */
-    protected $options;
 
     /**
      * Default folder paths.
@@ -55,8 +33,8 @@ abstract class AbstractGenerator
      */
     public function __construct(Filesystem $filesystem, array $options)
     {
-        $this->filesystem   = $filesystem;
-        $this->options      = $options;
+        parent::__construct($filesystem, $options);
+
         $this->resourcePath = __DIR__ . \DIRECTORY_SEPARATOR . '..' . \DIRECTORY_SEPARATOR . 'Resource';
 
         $storagePath   = self::expandTargetDir($this->options, '%STORAGE_DIR%');
@@ -82,55 +60,6 @@ abstract class AbstractGenerator
     }
 
     /**
-     * Returns the project type of the class.
-     *
-     * @return string
-     */
-    abstract public function projectType(): string;
-
-    /**
-     * Generate the project.
-     *
-     * @return void
-     */
-    public function generate(): void
-    {
-        $this->filesystem->mkdir(\array_merge($this->getBasicDirectories(), $this->getDirectories()));
-
-        $files = \array_merge($this->getBasicFiles(), $this->getFiles());
-
-        foreach ($files as $filePath => $fileContent) {
-            $this->filesystem->dumpFile($filePath, $fileContent);
-        }
-
-        $this->filesystem->remove($this->clean());
-    }
-
-    /**
-     * Returns all directories that should be generated.
-     *
-     * @return string[]
-     */
-    abstract protected function getDirectories(): array;
-
-    /**
-     * Returns all files that should be generated.
-     *
-     * @return array
-     */
-    abstract protected function getFiles(): array;
-
-    /**
-     * @return array
-     */
-    abstract protected function getDependencies(): array;
-
-    /**
-     * @return array
-     */
-    abstract protected function getDevDependencies(): array;
-
-    /**
      * List of narrowspark files and directories that should be removed.
      *
      * @return array
@@ -151,7 +80,7 @@ abstract class AbstractGenerator
      *
      * @return string[]
      */
-    private function getBasicDirectories(): array
+    protected function getBasicDirectories(): array
     {
         return [
             $this->folderPaths['logs'],
@@ -166,7 +95,7 @@ abstract class AbstractGenerator
      *
      * @return array
      */
-    private function getBasicFiles(): array
+    protected function getBasicFiles(): array
     {
         $array = [
             $this->folderPaths['logs'] . \DIRECTORY_SEPARATOR . '.gitignore'              => "!.gitignore\n",

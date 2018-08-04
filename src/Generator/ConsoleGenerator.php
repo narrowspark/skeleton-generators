@@ -7,9 +7,25 @@ class ConsoleGenerator extends AbstractGenerator
     /**
      * {@inheritdoc}
      */
-    public function projectType(): string
+    public function getSkeletonType(): string
     {
         return 'console';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDependencies(): array
+    {
+        return [];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDevDependencies(): array
+    {
+        return [];
     }
 
     /**
@@ -34,22 +50,6 @@ class ConsoleGenerator extends AbstractGenerator
             $this->folderPaths['app'] . \DIRECTORY_SEPARATOR . 'Console' . \DIRECTORY_SEPARATOR . 'Kernel.php' => $this->getConsoleKernelClass(),
             'cerebro'                                                                                          => \file_get_contents($this->resourcePath . \DIRECTORY_SEPARATOR . 'cerebro.template'),
         ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getDependencies(): array
-    {
-        return [];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getDevDependencies(): array
-    {
-        return [];
     }
 
     /**
