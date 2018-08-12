@@ -24,4 +24,9 @@ final class FrameworkGeneratorTest extends AbstractHttpGeneratorTest
             $this->arrangeConfig()
         );
     }
+
+    public function testProjectType(): void
+    {
+        static::assertSame('framework', $this->generator->getSkeletonType());
+    }
 }

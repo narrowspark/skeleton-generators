@@ -40,6 +40,22 @@ final class ConsoleGeneratorTest extends AbstractGeneratorTest
         static::assertSame('console', $this->generator->getSkeletonType());
     }
 
+    public function testGetDependencies(): void
+    {
+        static::assertSame([], $this->generator->getDependencies());
+    }
+
+    public function testGetDevDependencies(): void
+    {
+        static::assertSame(
+            [
+                'vlucas/phpdotenv' => '^2.3.0',
+                'phpunit/phpunit' => '^7.2.0',
+            ],
+            $this->generator->getDevDependencies()
+        );
+    }
+
     public function testGenerate(): void
     {
         $this->generator->generate();
