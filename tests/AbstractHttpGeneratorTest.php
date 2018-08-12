@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace Narrowspark\Project\Configurator\Tests\Generator;
+namespace Narrowspark\Skeleton\Generator\Tests;
 
 /**
  * @internal
@@ -14,7 +14,7 @@ abstract class AbstractHttpGeneratorTest extends AbstractGeneratorTest
     {
         parent::tearDown();
 
-        @\unlink(__DIR__ . \DIRECTORY_SEPARATOR . '..' . \DIRECTORY_SEPARATOR . '..' . \DIRECTORY_SEPARATOR . 'cerebro');
+        @\unlink(__DIR__ . \DIRECTORY_SEPARATOR . 'cerebro');
     }
 
     public function testGenerate(): void
@@ -39,9 +39,11 @@ abstract class AbstractHttpGeneratorTest extends AbstractGeneratorTest
         static::assertDirectoryExists($config['resources-dir'] . \DIRECTORY_SEPARATOR . 'lang');
         static::assertDirectoryExists($config['resources-dir'] . \DIRECTORY_SEPARATOR . 'views');
 
+        static::assertDirectoryExists($config['storage-dir']);
         static::assertFileExists($config['storage-dir'] . \DIRECTORY_SEPARATOR . 'framework' . \DIRECTORY_SEPARATOR . '.gitignore');
         static::assertFileExists($config['storage-dir'] . \DIRECTORY_SEPARATOR . 'logs' . \DIRECTORY_SEPARATOR . '.gitignore');
 
+        static::assertDirectoryExists($config['tests-dir']);
         static::assertDirectoryExists($config['tests-dir'] . \DIRECTORY_SEPARATOR . 'Feature');
         static::assertDirectoryExists($config['tests-dir'] . \DIRECTORY_SEPARATOR . 'Unit');
         static::assertFileExists($config['tests-dir'] . \DIRECTORY_SEPARATOR . 'AbstractTestCase.php');

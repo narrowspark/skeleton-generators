@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace Narrowspark\Project\Configurator\Tests\Generator;
+namespace Narrowspark\Skeleton\Generator\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
@@ -16,7 +16,7 @@ abstract class AbstractGeneratorTest extends TestCase
     protected $path;
 
     /**
-     * @var \Narrowspark\Project\Configurator\Generator\AbstractGenerator
+     * @var \Narrowspark\Skeleton\Generator\AbstractGenerator
      */
     protected $generator;
 

@@ -1,0 +1,9 @@
+<?php
+declare(strict_types=1);
+namespace App\Console;
+
+use Viserio\Component\Foundation\Console\Kernel as ConsoleKernel;
+
+class Kernel extends ConsoleKernel
+{
+}

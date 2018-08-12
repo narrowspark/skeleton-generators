@@ -1,8 +1,8 @@
 <?php
 declare(strict_types=1);
-namespace Narrowspark\Project\Configurator\Tests\Generator;
+namespace Narrowspark\Skeleton\Generator\Tests;
 
-use Narrowspark\Project\Configurator\Generator\MicroGenerator;
+use Narrowspark\Skeleton\Generator\MicroGenerator;
 use Symfony\Component\Filesystem\Filesystem;
 
 /**

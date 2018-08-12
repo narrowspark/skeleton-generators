@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace Narrowspark\Project\Configurator\Generator;
+namespace Narrowspark\Skeleton\Generator;
 
 use Cake\Chronos\Chronos;
 use Narrowspark\Automatic\Common\Generator\AbstractGenerator as BaseAbstractConfigurator;
@@ -35,7 +35,7 @@ abstract class AbstractGenerator extends BaseAbstractConfigurator
     {
         parent::__construct($filesystem, $options);
 
-        $this->resourcePath = __DIR__ . \DIRECTORY_SEPARATOR . '..' . \DIRECTORY_SEPARATOR . 'Resource';
+        $this->resourcePath = __DIR__ . \DIRECTORY_SEPARATOR . 'Resource';
 
         $storagePath   = self::expandTargetDir($this->options, '%STORAGE_DIR%');
         $testsPath     = self::expandTargetDir($this->options, '%TESTS_DIR%');
@@ -98,10 +98,10 @@ abstract class AbstractGenerator extends BaseAbstractConfigurator
     protected function getBasicFiles(): array
     {
         $array = [
-            $this->folderPaths['logs'] . \DIRECTORY_SEPARATOR . '.gitignore'              => "!.gitignore\n",
-            $this->folderPaths['framework'] . \DIRECTORY_SEPARATOR . '.gitignore'         => 'down' . \PHP_EOL,
-            $this->folderPaths['tests'] . \DIRECTORY_SEPARATOR . 'AbstractTestCase.php'   => $this->generateAbstractTestCaseClass(),
-            $this->folderPaths['tests'] . \DIRECTORY_SEPARATOR . 'bootstrap.php'          => $this->generateBootstrapFile(),
+            $this->folderPaths['logs'] . \DIRECTORY_SEPARATOR . '.gitignore'            => "!.gitignore\n",
+            $this->folderPaths['framework'] . \DIRECTORY_SEPARATOR . '.gitignore'       => 'down' . \PHP_EOL,
+            $this->folderPaths['tests'] . \DIRECTORY_SEPARATOR . 'AbstractTestCase.php' => $this->generateAbstractTestCaseClass(),
+            $this->folderPaths['tests'] . \DIRECTORY_SEPARATOR . 'bootstrap.php'        => $this->generateBootstrapFile(),
         ];
 
         if (! self::$isTest) {
@@ -118,17 +118,7 @@ abstract class AbstractGenerator extends BaseAbstractConfigurator
      */
     private function generateAbstractTestCaseClass(): string
     {
-        return <<<'PHP'
-<?php
-declare(strict_types=1);
-namespace Tests;
-
-use PHPUnit\Framework\TestCase as BaseTestCase;
-
-abstract class AbstractTestCase extends BaseTestCase
-{
-}
-PHP;
+        return (string) \file_get_contents($this->resourcePath . \DIRECTORY_SEPARATOR . 'AbstractTestCase.php.stub');
     }
 
     /**
@@ -138,25 +128,7 @@ PHP;
      */
     private function generateBootstrapFile(): string
     {
-        $fileContent = <<<PHP
-<?php
-declare(strict_types=1);
-
-require_once \realpath(__DIR__) . '/vendor/autoload.php';
-
-/*
- |--------------------------------------------------------------------------
- | Set The Default Timezone
- |--------------------------------------------------------------------------
- |
- | Here we will set the default timezone for PHP. PHP is notoriously mean
- | if the timezone is not explicitly set. This will be used by each of
- | the PHP date and date-time functions throughout the application.
- |
- */
-\\date_default_timezone_set(\\'UTC\\');
-
-PHP;
+        $fileContent = (string) \file_get_contents($this->resourcePath . \DIRECTORY_SEPARATOR . 'bootstrap.php.stub');
 
         if (\class_exists(Chronos::class)) {
             $fileContent .= <<<'PHP'
@@ -178,6 +150,6 @@ PHP;
      */
     private function getPhpunitXml(): string
     {
-        return (string) \file_get_contents($this->resourcePath . \DIRECTORY_SEPARATOR . 'phpunit.xml.template');
+        return (string) \file_get_contents($this->resourcePath . \DIRECTORY_SEPARATOR . 'phpunit.xml.stub');
     }
 }

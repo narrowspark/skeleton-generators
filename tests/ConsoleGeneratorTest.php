@@ -1,8 +1,8 @@
 <?php
 declare(strict_types=1);
-namespace Narrowspark\Project\Configurator\Tests\Generator;
+namespace Narrowspark\Skeleton\Generator\Tests;
 
-use Narrowspark\Project\Configurator\Generator\ConsoleGenerator;
+use Narrowspark\Skeleton\Generator\ConsoleGenerator;
 use Symfony\Component\Filesystem\Filesystem;
 
 /**
@@ -32,7 +32,7 @@ final class ConsoleGeneratorTest extends AbstractGeneratorTest
     {
         parent::tearDown();
 
-        @\unlink(__DIR__ . \DIRECTORY_SEPARATOR . '..' . \DIRECTORY_SEPARATOR . '..' . \DIRECTORY_SEPARATOR . 'cerebro');
+        @\unlink(__DIR__ . \DIRECTORY_SEPARATOR . 'cerebro');
     }
 
     public function testProjectType(): void
