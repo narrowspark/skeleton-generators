@@ -50,7 +50,7 @@ final class ConsoleGeneratorTest extends AbstractGeneratorTest
         static::assertSame(
             [
                 'vlucas/phpdotenv' => '^2.3.0',
-                'phpunit/phpunit' => '^7.2.0',
+                'phpunit/phpunit'  => '^7.2.0',
             ],
             $this->generator->getDevDependencies()
         );

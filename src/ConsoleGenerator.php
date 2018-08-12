@@ -27,7 +27,7 @@ class ConsoleGenerator extends AbstractGenerator
     {
         return [
             'vlucas/phpdotenv' => '^2.3.0',
-            'phpunit/phpunit' => '^7.2.0',
+            'phpunit/phpunit'  => '^7.2.0',
         ];
     }
 
@@ -54,10 +54,10 @@ class ConsoleGenerator extends AbstractGenerator
         return \array_merge(
             $this->getBasicFiles(),
             [
-                $this->folderPaths['app'] . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '.env.dist'         => '',
-                $this->folderPaths['routes'] . \DIRECTORY_SEPARATOR . 'console.php'                                => '<?php' . \PHP_EOL . 'declare(strict_types=1);' . \PHP_EOL,
-                $this->folderPaths['app'] . \DIRECTORY_SEPARATOR . 'Console' . \DIRECTORY_SEPARATOR . 'Kernel.php' => $this->getConsoleKernelClass(),
-                'cerebro'                                                                                          => \file_get_contents($this->resourcePath . \DIRECTORY_SEPARATOR . 'cerebro.stub'),
+                $this->folderPaths['app'] . \DIRECTORY_SEPARATOR . '..' . \DIRECTORY_SEPARATOR . '.env.dist'         => '',
+                $this->folderPaths['routes'] . \DIRECTORY_SEPARATOR . 'console.php'                                  => '<?php' . \PHP_EOL . 'declare(strict_types=1);' . \PHP_EOL,
+                $this->folderPaths['app'] . \DIRECTORY_SEPARATOR . 'Console' . \DIRECTORY_SEPARATOR . 'Kernel.php'   => $this->getConsoleKernelClass(),
+                'cerebro'                                                                                            => \file_get_contents($this->resourcePath . \DIRECTORY_SEPARATOR . 'cerebro.stub'),
             ]
         );
     }
