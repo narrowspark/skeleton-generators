@@ -51,15 +51,20 @@ class ConsoleGenerator extends AbstractGenerator
      */
     protected function getFiles(): array
     {
-        return \array_merge(
+        $files = \array_merge(
             $this->getBasicFiles(),
             [
-                $this->folderPaths['app'] . \DIRECTORY_SEPARATOR . '..' . \DIRECTORY_SEPARATOR . '.env.dist'         => '',
                 $this->folderPaths['routes'] . \DIRECTORY_SEPARATOR . 'console.php'                                  => '<?php' . \PHP_EOL . 'declare(strict_types=1);' . \PHP_EOL,
                 $this->folderPaths['app'] . \DIRECTORY_SEPARATOR . 'Console' . \DIRECTORY_SEPARATOR . 'Kernel.php'   => $this->getConsoleKernelClass(),
-                'cerebro'                                                                                            => \file_get_contents($this->resourcePath . \DIRECTORY_SEPARATOR . 'cerebro.stub'),
             ]
         );
+
+        if (! self::$isTest) {
+            $files['.env.dist'] = '';
+            $files['cerebro']   = \file_get_contents($this->resourcePath . \DIRECTORY_SEPARATOR . 'cerebro.stub');
+        }
+
+        return $files;
     }
 
     /**

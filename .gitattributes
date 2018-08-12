@@ -10,7 +10,6 @@ build            export-ignore
 .gitignore       export-ignore
 .travis.yml      export-ignore
 .editorconfig    export-ignore
-codecov.yml      export-ignore
 phpstan.neon     export-ignore
 phpunit.xml.dist export-ignore
 CONTRIBUTING.md  export-ignore
