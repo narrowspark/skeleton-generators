@@ -15,7 +15,7 @@ Branch Status
 Installation
 -------------
 
-> **Note:** This package can only be used with [automatic](https://github.com/narrowspark/automatic).
+> **Note:** This package can be only used with [automatic](https://github.com/narrowspark/automatic).
 
 Use [Composer](https://getcomposer.org/) to install this package:
 
