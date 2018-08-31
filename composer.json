@@ -27,11 +27,11 @@
         "ext-mbstring": "*"
     },
     "require-dev": {
-        "cakephp/chronos": "^1.2",
-        "mockery/mockery": "^1.1",
-        "narrowspark/automatic-common": "^0.3.0",
-        "narrowspark/coding-standard": "^1.1.2",
-        "narrowspark/testing-helper": "^7.0",
+        "cakephp/chronos": "^1.2.0",
+        "mockery/mockery": "^1.1.0",
+        "narrowspark/automatic-common": "^0.4.0",
+        "narrowspark/coding-standard": "^1.2.0",
+        "narrowspark/testing-helper": "^7.0.0",
         "phpunit/phpunit": "^7.2.0"
     },
     "config": {
