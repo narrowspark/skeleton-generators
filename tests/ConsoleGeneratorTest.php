@@ -44,6 +44,7 @@ final class ConsoleGeneratorTest extends AbstractGeneratorTest
     {
         static::assertSame(
             [
+                'viserio/config' => 'dev-master',
                 'viserio/foundation' => 'dev-master',
             ],
             $this->generator->getDependencies()
