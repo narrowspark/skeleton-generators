@@ -18,7 +18,7 @@ class ConsoleGenerator extends AbstractGenerator
     public function getDependencies(): array
     {
         return [
-            'viserio/config' => 'dev-master',
+            'viserio/config'     => 'dev-master',
             'viserio/foundation' => 'dev-master',
         ];
     }
