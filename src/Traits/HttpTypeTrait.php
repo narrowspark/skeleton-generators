@@ -57,9 +57,9 @@ trait HttpTypeTrait
 
         $array[$this->folderPaths['routes'] . \DIRECTORY_SEPARATOR . 'api.php']             = '<?php' . \PHP_EOL . 'declare(strict_types=1);' . \PHP_EOL;
         $array[$this->folderPaths['routes'] . \DIRECTORY_SEPARATOR . 'web.php']             = '<?php' . \PHP_EOL . 'declare(strict_types=1);' . \PHP_EOL;
-        $array[$httpPath . 'Kernel.php']                                                    = $this->getHttpKernelClass();
-        $array[$httpPath . 'Controller' . \DIRECTORY_SEPARATOR . 'AbstractController.php']  = $this->getControllerClass();
-        $array[$this->folderPaths['public'] . \DIRECTORY_SEPARATOR . 'index.php']           = \file_get_contents($this->resourcePath . \DIRECTORY_SEPARATOR . 'index.php.stub');
+        $array[$httpPath . 'Kernel.php']                                                    = (string) \file_get_contents($this->resourcePath . \DIRECTORY_SEPARATOR . 'HttpKernel.php.stub');
+        $array[$httpPath . 'Controller' . \DIRECTORY_SEPARATOR . 'AbstractController.php']  = (string) \file_get_contents($this->resourcePath . \DIRECTORY_SEPARATOR . 'AbstractController.php.stub');
+        $array[$this->folderPaths['public'] . \DIRECTORY_SEPARATOR . 'index.php']           = (string) \file_get_contents($this->resourcePath . \DIRECTORY_SEPARATOR . 'index.php.stub');
 
         if (! static::$isTest) {
             $array['phpunit.xml'] = $this->getPhpunitXmlContent();
@@ -93,25 +93,5 @@ trait HttpTypeTrait
     private function doInsertStringBeforePosition(string $string, string $insertStr, int $position): string
     {
         return \mb_substr($string, 0, $position) . $insertStr . \mb_substr($string, $position);
-    }
-
-    /**
-     * Get the Http Kernel Class.
-     *
-     * @return string
-     */
-    private function getHttpKernelClass(): string
-    {
-        return $this->resourcePath . \DIRECTORY_SEPARATOR . 'HttpKernel.php.stub';
-    }
-
-    /**
-     * Get the Http Kernel Class.
-     *
-     * @return string
-     */
-    private function getControllerClass(): string
-    {
-        return $this->resourcePath . \DIRECTORY_SEPARATOR . 'AbstractController.php.stub';
     }
 }
