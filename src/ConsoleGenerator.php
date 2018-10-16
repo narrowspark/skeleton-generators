@@ -58,7 +58,7 @@ class ConsoleGenerator extends AbstractGenerator
             $this->getBasicFiles(),
             [
                 $this->folderPaths['routes'] . \DIRECTORY_SEPARATOR . 'console.php'                                  => '<?php' . \PHP_EOL . 'declare(strict_types=1);' . \PHP_EOL,
-                $this->folderPaths['app'] . \DIRECTORY_SEPARATOR . 'Console' . \DIRECTORY_SEPARATOR . 'Kernel.php'   => $this->getConsoleKernelClass(),
+                $this->folderPaths['app'] . \DIRECTORY_SEPARATOR . 'Console' . \DIRECTORY_SEPARATOR . 'Kernel.php'   => (string) \file_get_contents($this->resourcePath . \DIRECTORY_SEPARATOR . 'ConsoleKernel.php.stub'),
             ]
         );
 
@@ -68,15 +68,5 @@ class ConsoleGenerator extends AbstractGenerator
         }
 
         return $files;
-    }
-
-    /**
-     * Get the Console Kernel Class.
-     *
-     * @return string
-     */
-    private function getConsoleKernelClass(): string
-    {
-        return (string) \file_get_contents($this->resourcePath . \DIRECTORY_SEPARATOR . 'ConsoleKernel.php.stub');
     }
 }

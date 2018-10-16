@@ -17,6 +17,22 @@ abstract class AbstractHttpGeneratorTest extends AbstractGeneratorTest
         @\unlink(__DIR__ . \DIRECTORY_SEPARATOR . 'cerebro');
     }
 
+    public function testGetDependencies(): void
+    {
+        static::assertSame(
+            [
+                'viserio/config'           => 'dev-master',
+                'viserio/foundation'       => 'dev-master',
+                'cakephp/chronos'          => '^1.0.4',
+                'narrowspark/http-emitter' => '^0.6.0',
+                'narrowspark/http-status'  => '^4.1.0',
+                'viserio/http-factory'     => 'dev-master',
+                'viserio/routing'          => 'dev-master',
+            ],
+            $this->generator->getDependencies()
+        );
+    }
+
     public function testGenerate(): void
     {
         $this->generator->generate();
