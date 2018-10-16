@@ -9,7 +9,7 @@ trait HttpTypeTrait
      */
     public function getDependencies(): array
     {
-        return array_merge(
+        return \array_merge(
             parent::getDependencies(),
             [
                 'cakephp/chronos'          => '^1.0.4',
