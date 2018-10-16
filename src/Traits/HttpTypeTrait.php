@@ -9,13 +9,16 @@ trait HttpTypeTrait
      */
     public function getDependencies(): array
     {
-        return [
-            'cakephp/chronos'          => '^1.0.4',
-            'narrowspark/http-emitter' => '^0.6.0',
-            'narrowspark/http-status'  => '^4.1.0',
-            'viserio/http-factory'     => 'dev-master',
-            'viserio/routing'          => 'dev-master',
-        ];
+        return array_merge(
+            parent::getDependencies(),
+            [
+                'cakephp/chronos'          => '^1.0.4',
+                'narrowspark/http-emitter' => '^0.6.0',
+                'narrowspark/http-status'  => '^4.1.0',
+                'viserio/http-factory'     => 'dev-master',
+                'viserio/routing'          => 'dev-master',
+            ]
+        );
     }
 
     /**
