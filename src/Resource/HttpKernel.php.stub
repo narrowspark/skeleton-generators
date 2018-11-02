@@ -2,21 +2,8 @@
 declare(strict_types=1);
 namespace App\Http;
 
-use Viserio\Component\Foundation\Http\Kernel as HttpKernel;
+use Viserio\Component\HttpFoundation\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
 {
-    /**
-     * The application's route middleware groups.
-     *
-     * @var array
-     */
-    protected $middlewareGroups = [];
-
-    /**
-     * The application's route middleware.
-     *
-     * @var array
-     */
-    protected $middleware = [];
 }

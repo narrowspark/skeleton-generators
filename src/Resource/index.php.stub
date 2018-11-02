@@ -2,12 +2,10 @@
 declare(strict_types=1);
 
 use App\Http\Kernel;
-use Narrowspark\HttpEmitter\EmitterInterface;
-use Narrowspark\HttpEmitter\Util as EmitterUtil;
-use Viserio\Component\Http\Util;
-use Viserio\Component\HttpFactory\ServerRequestFactory;
+use Narrowspark\HttpEmitter\SapiEmitter;
+use Viserio\Component\Http\ServerRequestBuilder;
 
-\define('NARROWSPARK_START', microtime(true));
+\define('NARROWSPARK_START', \microtime(true));
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +17,7 @@ use Viserio\Component\HttpFactory\ServerRequestFactory;
 | into the script here so that we do not have to worry about the
 | loading of any our classes "manually". Feels great to relax.
 |
-*/
+ */
 
 require_once \dirname(__DIR__) . '/vendor/autoload.php';
 
@@ -31,24 +29,13 @@ require_once \dirname(__DIR__) . '/vendor/autoload.php';
 | So let's turn on the lights.
 | This bootstraps the framework and gets it ready for use.
 |
-*/
-
+ */
 $kernel = new Kernel();
 
-$serverRequest = (new ServerRequestFactory())->createServerRequestFromArray($_SERVER);
-$serverRequest->withCookieParams($_COOKIE)
-    ->withQueryParams($_GET)
-    ->withParsedBody($_POST)
-    ->withUploadedFiles(Util::normalizeFiles($_FILES));
+$serverRequest = (new ServerRequestBuilder())->createFromGlobals();
 
 $response = $kernel->handle($serverRequest);
 
-$kernel->getContainer()->get(EmitterInterface::class)->emit($response);
-
-if (function_exists('fastcgi_finish_request')) {
-    fastcgi_finish_request();
-} elseif (!\in_array(PHP_SAPI, ['cli', 'phpdbg'], true)) {
-    EmitterUtil::closeOutputBuffers(0, true);
-}
+(new SapiEmitter())->emit($response);
 
 $kernel->terminate($serverRequest, $response);

@@ -1,0 +1,100 @@
+<?php
+declare(strict_types=1);
+namespace App\Http\Bootstrap;
+
+use Viserio\Component\Contract\Foundation\BootstrapState as BootstrapStateContract;
+use Viserio\Component\Contract\Foundation\Kernel as KernelContract;
+use Viserio\Component\Contract\Routing\Router as RouterContract;
+use Viserio\Component\Foundation\Bootstrap\AbstractLoadFiles;
+use Viserio\Component\Foundation\Bootstrap\LoadServiceProvider;
+
+class LoadRoutes extends AbstractLoadFiles implements BootstrapStateContract
+{
+    /**
+     * This namespace is applied to your controller routes.
+     *
+     * In addition, it is set as the URL generator's root namespace.
+     *
+     * @var string
+     */
+    protected static $namespace = 'App\Http\Controllers';
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getPriority(): int
+    {
+        return 64;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getType(): string
+    {
+        return BootstrapStateContract::TYPE_AFTER;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getBootstrapper(): string
+    {
+        return LoadServiceProvider::class;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function bootstrap(KernelContract $kernel): void
+    {
+        $container = $kernel->getContainer();
+        $router    = $container->get(RouterContract::class);
+
+        self::mapApiRoutes($router, $kernel);
+        self::mapWebRoutes($router, $kernel);
+    }
+
+    /**
+     * Define the "web" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @param \Viserio\Component\Contract\Routing\Router    $router
+     * @param \Viserio\Component\Contract\Foundation\Kernel $kernel
+     *
+     * @return void
+     */
+    protected static function mapWebRoutes(RouterContract $router, KernelContract $kernel): void
+    {
+        $router->group(
+            [
+                'middlewares' => 'web',
+                'namespace'   => self::$namespace,
+            ],
+            $kernel->getRoutesPath('web.php')
+        );
+    }
+
+    /**
+     * Define the "api" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @param \Viserio\Component\Contract\Routing\Router    $router
+     * @param \Viserio\Component\Contract\Foundation\Kernel $kernel
+     *
+     * @return void
+     */
+    protected static function mapApiRoutes(RouterContract $router, KernelContract $kernel): void
+    {
+        $router->group(
+            [
+                'middlewares' => 'api',
+                'namespace'   => self::$namespace,
+                'prefix'      => 'api',
+            ],
+            $kernel->getRoutesPath('api.php')
+        );
+    }
+}

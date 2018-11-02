@@ -29,7 +29,7 @@ class ConsoleGenerator extends AbstractGenerator
     public function getDevDependencies(): array
     {
         return [
-            'vlucas/phpdotenv' => '^2.3.0',
+            'vlucas/phpdotenv' => '^2.5.0',
             'phpunit/phpunit'  => '^7.2.0',
         ];
     }
@@ -45,6 +45,7 @@ class ConsoleGenerator extends AbstractGenerator
             $this->getBasicDirectories(),
             [
                 $this->folderPaths['app'] . \DIRECTORY_SEPARATOR . 'Console',
+                $this->folderPaths['app'] . \DIRECTORY_SEPARATOR . 'Console' . \DIRECTORY_SEPARATOR . 'Bootstrap',
             ]
         );
     }
@@ -57,8 +58,7 @@ class ConsoleGenerator extends AbstractGenerator
         $files = \array_merge(
             $this->getBasicFiles(),
             [
-                $this->folderPaths['routes'] . \DIRECTORY_SEPARATOR . 'console.php'                                  => '<?php' . \PHP_EOL . 'declare(strict_types=1);' . \PHP_EOL,
-                $this->folderPaths['app'] . \DIRECTORY_SEPARATOR . 'Console' . \DIRECTORY_SEPARATOR . 'Kernel.php'   => (string) \file_get_contents($this->resourcePath . \DIRECTORY_SEPARATOR . 'ConsoleKernel.php.stub'),
+                $this->folderPaths['app'] . \DIRECTORY_SEPARATOR . 'Console' . \DIRECTORY_SEPARATOR . 'Kernel.php'   => $this->getConsoleKernelClass(),
             ]
         );
 
@@ -68,5 +68,15 @@ class ConsoleGenerator extends AbstractGenerator
         }
 
         return $files;
+    }
+
+    /**
+     * Get the Console Kernel Class.
+     *
+     * @return string
+     */
+    private function getConsoleKernelClass(): string
+    {
+        return (string) \file_get_contents($this->resourcePath . \DIRECTORY_SEPARATOR . 'ConsoleKernel.php.stub');
     }
 }

@@ -52,7 +52,6 @@ abstract class AbstractGenerator extends BaseAbstractConfigurator
             'unit'      => $testsPath . \DIRECTORY_SEPARATOR . 'Unit',
             'resources' => $resourcesPath,
             'views'     => $resourcesPath . \DIRECTORY_SEPARATOR . 'views',
-            'lang'      => $resourcesPath . \DIRECTORY_SEPARATOR . 'lang',
             'routes'    => $routesPath,
             'app'       => $appPath,
             'public'    => $publicPath,

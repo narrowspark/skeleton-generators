@@ -27,6 +27,6 @@ final class MicroGeneratorTest extends AbstractHttpGeneratorTest
 
     public function testProjectType(): void
     {
-        static::assertSame('micro', $this->generator->getSkeletonType());
+        $this->assertSame('micro', $this->generator->getSkeletonType());
     }
 }
