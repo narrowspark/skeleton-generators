@@ -58,7 +58,8 @@ class ConsoleGenerator extends AbstractGenerator
         $files = \array_merge(
             $this->getBasicFiles(),
             [
-                $this->folderPaths['app'] . \DIRECTORY_SEPARATOR . 'Console' . \DIRECTORY_SEPARATOR . 'Kernel.php'   => $this->getConsoleKernelClass(),
+                $this->folderPaths['routes'] . \DIRECTORY_SEPARATOR . 'console.php'                                => '<?php' . \PHP_EOL . 'declare(strict_types=1);' . \PHP_EOL,
+                $this->folderPaths['app'] . \DIRECTORY_SEPARATOR . 'Console' . \DIRECTORY_SEPARATOR . 'Kernel.php' => $this->getConsoleKernelClass(),
             ]
         );
 
