@@ -14,20 +14,19 @@ abstract class AbstractHttpGeneratorTest extends AbstractGeneratorTest
     {
         parent::tearDown();
 
-        @\unlink(__DIR__ . \DIRECTORY_SEPARATOR . 'cerebro');
+        @\unlink(__DIR__ . \DIRECTORY_SEPARATOR . 'cerebro.stub');
     }
 
     public function testGetDependencies(): void
     {
-        static::assertSame(
+        $this->assertSame(
             [
                 'viserio/config'           => 'dev-master',
                 'viserio/foundation'       => 'dev-master',
                 'cakephp/chronos'          => '^1.0.4',
-                'narrowspark/http-emitter' => '^0.6.0',
-                'narrowspark/http-status'  => '^4.1.0',
-                'viserio/http-factory'     => 'dev-master',
-                'viserio/routing'          => 'dev-master',
+                'narrowspark/http-emitter' => '^0.7.0',
+                'viserio/http-foundation'  => 'dev-master',
+                'viserio/view'             => 'dev-master',
             ],
             $this->generator->getDependencies()
         );
@@ -41,27 +40,25 @@ abstract class AbstractHttpGeneratorTest extends AbstractGeneratorTest
 
         $this->arrangeAssertDirectoryExists($config);
 
-        static::assertDirectoryExists($config['app-dir'] . \DIRECTORY_SEPARATOR . 'Console');
-        static::assertFileExists($config['app-dir'] . \DIRECTORY_SEPARATOR . 'Console' . \DIRECTORY_SEPARATOR . 'Kernel.php');
+        $this->assertDirectoryExists($config['app-dir'] . \DIRECTORY_SEPARATOR . 'Console');
+        $this->assertFileExists($config['app-dir'] . \DIRECTORY_SEPARATOR . 'Console' . \DIRECTORY_SEPARATOR . 'Kernel.php');
 
-        static::assertDirectoryExists($config['app-dir'] . \DIRECTORY_SEPARATOR . 'Provider');
-        static::assertDirectoryExists($config['app-dir'] . \DIRECTORY_SEPARATOR . 'Http' . \DIRECTORY_SEPARATOR . 'Middleware');
-        static::assertFileExists($config['app-dir'] . \DIRECTORY_SEPARATOR . 'Http' . \DIRECTORY_SEPARATOR . 'Controller' . \DIRECTORY_SEPARATOR . 'AbstractController.php');
+        $this->assertDirectoryExists($config['app-dir'] . \DIRECTORY_SEPARATOR . 'Provider');
+        $this->assertDirectoryExists($config['app-dir'] . \DIRECTORY_SEPARATOR . 'Http' . \DIRECTORY_SEPARATOR . 'Middleware');
+        $this->assertFileExists($config['app-dir'] . \DIRECTORY_SEPARATOR . 'Http' . \DIRECTORY_SEPARATOR . 'Controller' . \DIRECTORY_SEPARATOR . 'AbstractController.php');
 
-        static::assertFileExists($config['routes-dir'] . \DIRECTORY_SEPARATOR . 'api.php');
-        static::assertFileExists($config['routes-dir'] . \DIRECTORY_SEPARATOR . 'console.php');
-        static::assertFileExists($config['routes-dir'] . \DIRECTORY_SEPARATOR . 'web.php');
+        $this->assertFileExists($config['routes-dir'] . \DIRECTORY_SEPARATOR . 'api.php');
+        $this->assertFileExists($config['routes-dir'] . \DIRECTORY_SEPARATOR . 'web.php');
 
-        static::assertDirectoryExists($config['resources-dir'] . \DIRECTORY_SEPARATOR . 'lang');
-        static::assertDirectoryExists($config['resources-dir'] . \DIRECTORY_SEPARATOR . 'views');
+        $this->assertDirectoryExists($config['resources-dir'] . \DIRECTORY_SEPARATOR . 'views');
 
-        static::assertDirectoryExists($config['storage-dir']);
-        static::assertFileExists($config['storage-dir'] . \DIRECTORY_SEPARATOR . 'framework' . \DIRECTORY_SEPARATOR . '.gitignore');
-        static::assertFileExists($config['storage-dir'] . \DIRECTORY_SEPARATOR . 'logs' . \DIRECTORY_SEPARATOR . '.gitignore');
+        $this->assertDirectoryExists($config['storage-dir']);
+        $this->assertFileExists($config['storage-dir'] . \DIRECTORY_SEPARATOR . 'framework' . \DIRECTORY_SEPARATOR . '.gitignore');
+        $this->assertFileExists($config['storage-dir'] . \DIRECTORY_SEPARATOR . 'logs' . \DIRECTORY_SEPARATOR . '.gitignore');
 
-        static::assertDirectoryExists($config['tests-dir']);
-        static::assertDirectoryExists($config['tests-dir'] . \DIRECTORY_SEPARATOR . 'Feature');
-        static::assertDirectoryExists($config['tests-dir'] . \DIRECTORY_SEPARATOR . 'Unit');
-        static::assertFileExists($config['tests-dir'] . \DIRECTORY_SEPARATOR . 'AbstractTestCase.php');
+        $this->assertDirectoryExists($config['tests-dir']);
+        $this->assertDirectoryExists($config['tests-dir'] . \DIRECTORY_SEPARATOR . 'Feature');
+        $this->assertDirectoryExists($config['tests-dir'] . \DIRECTORY_SEPARATOR . 'Unit');
+        $this->assertFileExists($config['tests-dir'] . \DIRECTORY_SEPARATOR . 'AbstractTestCase.php');
     }
 }

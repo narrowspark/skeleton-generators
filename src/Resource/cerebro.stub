@@ -5,6 +5,8 @@ use App\Console\Kernel;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
+set_time_limit(0);
+
 /*
 |--------------------------------------------------------------------------
 | Register The Auto Loader
@@ -31,17 +33,9 @@ require_once \realpath(__DIR__) . '/vendor/autoload.php';
 */
 
 $input  = new ArgvInput();
-$env    = $input->getParameterOption(['--env', '-e'], $_SERVER['APP_ENV'] ?? 'prod', true);
 $kernel = new Kernel();
 
-$kernel->detectEnvironment(function () use ($env) {
-    return $env;
-});
-
-$status = $kernel->handle(
-    $input,
-    new ConsoleOutput()
-);
+$status = $kernel->handle($input, new ConsoleOutput());
 
 /*
 |--------------------------------------------------------------------------

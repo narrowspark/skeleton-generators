@@ -1,0 +1,12 @@
+<?php
+declare(strict_types=1);
+
+use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Viserio\Component\Http\Response\HtmlResponse;
+
+$router->get('/', function (ServerRequestInterface $request, array $data, ContainerInterface $container) {
+    $view = $container->get('view');
+
+    return new HtmlResponse((string) $view->create('welcome', ['lang' => 'en']));
+});
