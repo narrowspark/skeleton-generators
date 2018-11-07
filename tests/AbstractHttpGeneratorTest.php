@@ -25,9 +25,7 @@ abstract class AbstractHttpGeneratorTest extends AbstractGeneratorTest
                 'viserio/foundation'       => 'dev-master',
                 'cakephp/chronos'          => '^1.0.4',
                 'narrowspark/http-emitter' => '^0.7.0',
-                'narrowspark/http-status'  => '^4.1.0',
-                'viserio/http-factory'     => 'dev-master',
-                'viserio/routing'          => 'dev-master',
+                'viserio/http-foundation'  => 'dev-master',
                 'viserio/view'             => 'dev-master',
             ],
             $this->generator->getDependencies()
