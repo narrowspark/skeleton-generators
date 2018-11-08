@@ -67,7 +67,7 @@ abstract class AbstractGeneratorTest extends TestCase
                 continue;
             }
 
-            static::assertDirectoryExists($dir);
+            $this->assertDirectoryExists($dir);
         }
     }
 }

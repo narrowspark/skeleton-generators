@@ -37,12 +37,12 @@ final class ConsoleGeneratorTest extends AbstractGeneratorTest
 
     public function testProjectType(): void
     {
-        static::assertSame('console', $this->generator->getSkeletonType());
+        $this->assertSame('console', $this->generator->getSkeletonType());
     }
 
     public function testGetDependencies(): void
     {
-        static::assertSame(
+        $this->assertSame(
             [
                 'viserio/config'     => 'dev-master',
                 'viserio/foundation' => 'dev-master',
@@ -53,7 +53,7 @@ final class ConsoleGeneratorTest extends AbstractGeneratorTest
 
     public function testGetDevDependencies(): void
     {
-        static::assertSame(
+        $this->assertSame(
             [
                 'vlucas/phpdotenv' => '^2.5.0',
                 'phpunit/phpunit'  => '^7.2.0',
@@ -70,26 +70,26 @@ final class ConsoleGeneratorTest extends AbstractGeneratorTest
 
         $this->arrangeAssertDirectoryExists($config, ['resources-dir', 'public-dir', 'routes-dir']);
 
-        static::assertDirectoryExists($config['app-dir'] . \DIRECTORY_SEPARATOR . 'Console');
-        static::assertFileExists($config['app-dir'] . \DIRECTORY_SEPARATOR . 'Console' . \DIRECTORY_SEPARATOR . 'Kernel.php');
-        static::assertFileExists($config['app-dir'] . \DIRECTORY_SEPARATOR . 'Console' . \DIRECTORY_SEPARATOR . 'Bootstrap' . \DIRECTORY_SEPARATOR . 'LoadConsoleCommand.php');
-        static::assertDirectoryExists($config['app-dir'] . \DIRECTORY_SEPARATOR . 'Provider');
-        static::assertDirectoryNotExists($config['app-dir'] . \DIRECTORY_SEPARATOR . 'Http/Middleware');
-        static::assertFileNotExists($config['app-dir'] . \DIRECTORY_SEPARATOR . 'Http/Controller/Controller.php');
+        $this->assertDirectoryExists($config['app-dir'] . \DIRECTORY_SEPARATOR . 'Console');
+        $this->assertFileExists($config['app-dir'] . \DIRECTORY_SEPARATOR . 'Console' . \DIRECTORY_SEPARATOR . 'Kernel.php');
+        $this->assertFileExists($config['app-dir'] . \DIRECTORY_SEPARATOR . 'Console' . \DIRECTORY_SEPARATOR . 'Bootstrap' . \DIRECTORY_SEPARATOR . 'LoadConsoleCommand.php');
+        $this->assertDirectoryExists($config['app-dir'] . \DIRECTORY_SEPARATOR . 'Provider');
+        $this->assertDirectoryNotExists($config['app-dir'] . \DIRECTORY_SEPARATOR . 'Http/Middleware');
+        $this->assertFileNotExists($config['app-dir'] . \DIRECTORY_SEPARATOR . 'Http/Controller/Controller.php');
 
-        static::assertDirectoryNotExists($this->path . \DIRECTORY_SEPARATOR . 'resources/lang');
-        static::assertDirectoryNotExists($this->path . \DIRECTORY_SEPARATOR . 'resources/views');
+        $this->assertDirectoryNotExists($this->path . \DIRECTORY_SEPARATOR . 'resources/lang');
+        $this->assertDirectoryNotExists($this->path . \DIRECTORY_SEPARATOR . 'resources/views');
 
-        static::assertFileExists($config['storage-dir'] . \DIRECTORY_SEPARATOR . 'framework/.gitignore');
-        static::assertFileExists($config['storage-dir'] . \DIRECTORY_SEPARATOR . 'logs/.gitignore');
+        $this->assertFileExists($config['storage-dir'] . \DIRECTORY_SEPARATOR . 'framework/.gitignore');
+        $this->assertFileExists($config['storage-dir'] . \DIRECTORY_SEPARATOR . 'logs/.gitignore');
 
-        static::assertDirectoryNotExists($config['tests-dir'] . \DIRECTORY_SEPARATOR . 'Feature');
-        static::assertDirectoryExists($config['tests-dir'] . \DIRECTORY_SEPARATOR . 'Unit');
-        static::assertFileExists($config['tests-dir'] . \DIRECTORY_SEPARATOR . 'AbstractTestCase.php');
+        $this->assertDirectoryNotExists($config['tests-dir'] . \DIRECTORY_SEPARATOR . 'Feature');
+        $this->assertDirectoryExists($config['tests-dir'] . \DIRECTORY_SEPARATOR . 'Unit');
+        $this->assertFileExists($config['tests-dir'] . \DIRECTORY_SEPARATOR . 'AbstractTestCase.php');
 
         $bootstrapFile = $config['config-dir'] . \DIRECTORY_SEPARATOR . 'bootstrap.php';
 
-        static::assertFileExists($bootstrapFile);
-        static::assertInternalType('array', require $bootstrapFile);
+        $this->assertFileExists($bootstrapFile);
+        $this->assertInternalType('array', require $bootstrapFile);
     }
 }
