@@ -37,12 +37,13 @@ abstract class AbstractGenerator extends BaseAbstractConfigurator
 
         $this->resourcePath = __DIR__ . \DIRECTORY_SEPARATOR . 'Resource';
 
-        $storagePath   = self::expandTargetDir($this->options, '%STORAGE_DIR%');
-        $testsPath     = self::expandTargetDir($this->options, '%TESTS_DIR%');
+        $appPath       = self::expandTargetDir($this->options, '%APP_DIR%');
+        $configPath    = self::expandTargetDir($this->options, '%CONFIG_DIR%');
+        $publicPath    = self::expandTargetDir($this->options, '%PUBLIC_DIR%');
         $resourcesPath = self::expandTargetDir($this->options, '%RESOURCES_DIR%');
         $routesPath    = self::expandTargetDir($this->options, '%ROUTES_DIR%');
-        $publicPath    = self::expandTargetDir($this->options, '%PUBLIC_DIR%');
-        $appPath       = self::expandTargetDir($this->options, '%APP_DIR%');
+        $storagePath   = self::expandTargetDir($this->options, '%STORAGE_DIR%');
+        $testsPath     = self::expandTargetDir($this->options, '%TESTS_DIR%');
 
         $this->folderPaths = [
             'storage'   => $storagePath,
@@ -55,6 +56,7 @@ abstract class AbstractGenerator extends BaseAbstractConfigurator
             'routes'    => $routesPath,
             'app'       => $appPath,
             'public'    => $publicPath,
+            'config'    => $configPath,
         ];
     }
 

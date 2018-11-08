@@ -54,13 +54,13 @@ trait HttpTypeTrait
         $files = \array_merge(
             parent::getFiles(),
             [
-                $this->folderPaths['routes'] . \DIRECTORY_SEPARATOR . 'api.php'                                         => '<?php' . \PHP_EOL . 'declare(strict_types=1);' . \PHP_EOL,
-                $this->folderPaths['routes'] . \DIRECTORY_SEPARATOR . 'web.php'                                         => $this->getWebRoutes(),
-                $httpPath . 'Kernel.php'                                                                                => $this->getHttpKernelClass(),
-                $httpPath . 'Controller' . \DIRECTORY_SEPARATOR . 'AbstractController.php'                              => $this->getControllerClass(),
-                $httpPath . 'Controller' . \DIRECTORY_SEPARATOR . 'Bootstrap' . \DIRECTORY_SEPARATOR . 'LoadRoutes.php' => $this->getLoadRoutesClass(),
-                $this->folderPaths['public'] . \DIRECTORY_SEPARATOR . 'index.php'                                       => $this->getIndexFile(),
-                $this->folderPaths['views'] . \DIRECTORY_SEPARATOR . 'welcome.php'                                      => $this->getWelcomeFile(),
+                $this->folderPaths['routes'] . \DIRECTORY_SEPARATOR . 'api.php'            => '<?php' . \PHP_EOL . 'declare(strict_types=1);' . \PHP_EOL,
+                $this->folderPaths['routes'] . \DIRECTORY_SEPARATOR . 'web.php'            => $this->getWebRoutes(),
+                $httpPath . 'Kernel.php'                                                   => $this->getHttpKernelClass(),
+                $httpPath . 'Controller' . \DIRECTORY_SEPARATOR . 'AbstractController.php' => $this->getControllerClass(),
+                $httpPath . 'Bootstrap' . \DIRECTORY_SEPARATOR . 'LoadRoutes.php'          => $this->getLoadRoutesClass(),
+                $this->folderPaths['public'] . \DIRECTORY_SEPARATOR . 'index.php'          => $this->getIndexFile(),
+                $this->folderPaths['views'] . \DIRECTORY_SEPARATOR . 'welcome.php'         => $this->getWelcomeFile(),
             ]
         );
 
@@ -81,7 +81,7 @@ trait HttpTypeTrait
         $phpunitContent = (string) \file_get_contents($this->resourcePath . \DIRECTORY_SEPARATOR . 'phpunit.xml.stub');
         $feature        = "        <testsuite name=\"Feature\">\n            <directory suffix=\"Test.php\">./tests/Feature</directory>\n        </testsuite>\n";
 
-        return $this->doInsertStringBeforePosition($phpunitContent, $feature, (int) \strpos($phpunitContent, '</testsuites>'));
+        return $this->doInsertStringBeforePosition($phpunitContent, $feature, (int) \mb_strpos($phpunitContent, '</testsuites>'));
     }
 
     /**
@@ -95,11 +95,11 @@ trait HttpTypeTrait
      */
     private function doInsertStringBeforePosition(string $string, string $insertStr, int $position): string
     {
-        return \substr($string, 0, $position) . $insertStr . \substr($string, $position);
+        return \mb_substr($string, 0, $position) . $insertStr . \mb_substr($string, $position);
     }
 
     /**
-     * Get the Http Kernel Class.
+     * Get the http kernel class.
      *
      * @return string
      */
@@ -109,7 +109,7 @@ trait HttpTypeTrait
     }
 
     /**
-     * Get the Http Kernel Class.
+     * Get the controller class.
      *
      * @return string
      */
@@ -119,7 +119,7 @@ trait HttpTypeTrait
     }
 
     /**
-     * Get the Load Routes Bootstrap Class.
+     * Get the load routes bootstrap class.
      *
      * @return string
      */

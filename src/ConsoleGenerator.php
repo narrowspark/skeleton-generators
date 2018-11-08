@@ -55,11 +55,15 @@ class ConsoleGenerator extends AbstractGenerator
      */
     protected function getFiles(): array
     {
+        $consolePath = $this->folderPaths['app'] . \DIRECTORY_SEPARATOR . 'Console' . \DIRECTORY_SEPARATOR;
+
         $files = \array_merge(
             $this->getBasicFiles(),
             [
-                $this->folderPaths['routes'] . \DIRECTORY_SEPARATOR . 'console.php'                                => '<?php' . \PHP_EOL . 'declare(strict_types=1);' . \PHP_EOL,
-                $this->folderPaths['app'] . \DIRECTORY_SEPARATOR . 'Console' . \DIRECTORY_SEPARATOR . 'Kernel.php' => $this->getConsoleKernelClass(),
+                $this->folderPaths['routes'] . \DIRECTORY_SEPARATOR . 'console.php'           => '<?php' . \PHP_EOL . 'declare(strict_types=1);' . \PHP_EOL,
+                $consolePath . 'Kernel.php'                                                   => $this->getConsoleKernelClass(),
+                $consolePath . 'Bootstrap' . \DIRECTORY_SEPARATOR . 'LoadConsoleCommand.php'  => $this->getLoadConsoleCommand(),
+                $this->folderPaths['config'] . \DIRECTORY_SEPARATOR . 'bootstrap.php'         => $this->getBootstrapContent(),
             ]
         );
 
@@ -72,12 +76,32 @@ class ConsoleGenerator extends AbstractGenerator
     }
 
     /**
-     * Get the Console Kernel Class.
+     * Get the bootstrap file content.
+     *
+     * @return string
+     */
+    protected function getBootstrapContent(): string
+    {
+        return '<?php' . \PHP_EOL . 'declare(strict_types=1);' . \PHP_EOL . \PHP_EOL . 'return [' . \PHP_EOL . '    /** > app/bootstrap **/' . \PHP_EOL . '    \App\Console\Bootstrap::class => [\'console\'],' . \PHP_EOL . '    /** app/bootstrap < **/' . \PHP_EOL . '];' . \PHP_EOL;
+    }
+
+    /**
+     * Get the console kernel class.
      *
      * @return string
      */
     private function getConsoleKernelClass(): string
     {
         return (string) \file_get_contents($this->resourcePath . \DIRECTORY_SEPARATOR . 'ConsoleKernel.php.stub');
+    }
+
+    /**
+     * Get the load console command bootstrap class.
+     *
+     * @return string
+     */
+    private function getLoadConsoleCommand(): string
+    {
+        return (string) \file_get_contents($this->resourcePath . \DIRECTORY_SEPARATOR . 'LoadConsoleCommand.php.stub');
     }
 }
