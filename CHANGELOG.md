@@ -10,6 +10,11 @@ Added
 
  - [6: added new console and http bootstraps](https://github.com/narrowspark/skeleton-generators/pull/6) thanks to @prisis
 
+Fixed
+-----
+
+ - [7: fix http bootstrap path](https://github.com/narrowspark/skeleton-generators/issues/7) thanks to @prisis
+
 v0.2.0
 ======
 
