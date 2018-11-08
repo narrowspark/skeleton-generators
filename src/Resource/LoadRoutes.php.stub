@@ -5,10 +5,9 @@ namespace App\Http\Bootstrap;
 use Viserio\Component\Contract\Foundation\BootstrapState as BootstrapStateContract;
 use Viserio\Component\Contract\Foundation\Kernel as KernelContract;
 use Viserio\Component\Contract\Routing\Router as RouterContract;
-use Viserio\Component\Foundation\Bootstrap\AbstractLoadFiles;
 use Viserio\Component\Foundation\Bootstrap\LoadServiceProvider;
 
-class LoadRoutes extends AbstractLoadFiles implements BootstrapStateContract
+class LoadRoutes implements BootstrapStateContract
 {
     /**
      * This namespace is applied to your controller routes.
@@ -48,8 +47,7 @@ class LoadRoutes extends AbstractLoadFiles implements BootstrapStateContract
      */
     public static function bootstrap(KernelContract $kernel): void
     {
-        $container = $kernel->getContainer();
-        $router    = $container->get(RouterContract::class);
+        $router = $kernel->getContainer()->get(RouterContract::class);
 
         self::mapApiRoutes($router, $kernel);
         self::mapWebRoutes($router, $kernel);

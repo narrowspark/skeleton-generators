@@ -46,6 +46,7 @@ abstract class AbstractHttpGeneratorTest extends AbstractGeneratorTest
         $this->assertDirectoryExists($config['app-dir'] . \DIRECTORY_SEPARATOR . 'Provider');
         $this->assertDirectoryExists($config['app-dir'] . \DIRECTORY_SEPARATOR . 'Http' . \DIRECTORY_SEPARATOR . 'Middleware');
         $this->assertFileExists($config['app-dir'] . \DIRECTORY_SEPARATOR . 'Http' . \DIRECTORY_SEPARATOR . 'Controller' . \DIRECTORY_SEPARATOR . 'AbstractController.php');
+        $this->assertFileExists($config['app-dir'] . \DIRECTORY_SEPARATOR . 'Http' . \DIRECTORY_SEPARATOR . 'Bootstrap' . \DIRECTORY_SEPARATOR . 'LoadRoutes.php');
 
         $this->assertFileExists($config['routes-dir'] . \DIRECTORY_SEPARATOR . 'api.php');
         $this->assertFileExists($config['routes-dir'] . \DIRECTORY_SEPARATOR . 'web.php');
@@ -60,5 +61,10 @@ abstract class AbstractHttpGeneratorTest extends AbstractGeneratorTest
         $this->assertDirectoryExists($config['tests-dir'] . \DIRECTORY_SEPARATOR . 'Feature');
         $this->assertDirectoryExists($config['tests-dir'] . \DIRECTORY_SEPARATOR . 'Unit');
         $this->assertFileExists($config['tests-dir'] . \DIRECTORY_SEPARATOR . 'AbstractTestCase.php');
+
+        $bootstrapFile = $config['config-dir'] . \DIRECTORY_SEPARATOR . 'bootstrap.php';
+
+        $this->assertFileExists($bootstrapFile);
+        $this->assertInternalType('array', require $bootstrapFile);
     }
 }

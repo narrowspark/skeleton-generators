@@ -46,12 +46,13 @@ abstract class AbstractGeneratorTest extends TestCase
     protected function arrangeConfig(): array
     {
         return [
-            'app-dir'        => $this->path . \DIRECTORY_SEPARATOR . 'app',
-            'public-dir'     => $this->path . \DIRECTORY_SEPARATOR . 'public',
-            'resources-dir'  => $this->path . \DIRECTORY_SEPARATOR . 'resources',
-            'routes-dir'     => $this->path . \DIRECTORY_SEPARATOR . 'routes',
-            'tests-dir'      => $this->path . \DIRECTORY_SEPARATOR . 'tests',
-            'storage-dir'    => $this->path . \DIRECTORY_SEPARATOR . 'storage',
+            'app-dir'       => $this->path . \DIRECTORY_SEPARATOR . 'app',
+            'public-dir'    => $this->path . \DIRECTORY_SEPARATOR . 'public',
+            'resources-dir' => $this->path . \DIRECTORY_SEPARATOR . 'resources',
+            'routes-dir'    => $this->path . \DIRECTORY_SEPARATOR . 'routes',
+            'tests-dir'     => $this->path . \DIRECTORY_SEPARATOR . 'tests',
+            'storage-dir'   => $this->path . \DIRECTORY_SEPARATOR . 'storage',
+            'config-dir'    => $this->path . \DIRECTORY_SEPARATOR . 'config',
         ];
     }
 
