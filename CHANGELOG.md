@@ -1,3 +1,15 @@
+v0.3.0
+======
+
+- Total issues resolved: **1**
+- Total pull requests resolved: **1**
+- Total contributors: **1**
+
+Added
+-----
+
+ - [6: added new console and http bootstraps](https://github.com/narrowspark/skeleton-generators/pull/6) thanks to @prisis
+
 v0.2.0
 ======
 
