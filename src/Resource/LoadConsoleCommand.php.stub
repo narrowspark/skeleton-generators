@@ -40,6 +40,6 @@ class LoadConsoleCommand implements BootstrapStateContract
     {
         $console = $kernel->getContainer()->get(Kernel::class);
 
-        require $console->getRoutesPath('console.php');
+        require $kernel->getRoutesPath('console.php');
     }
 }
