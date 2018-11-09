@@ -1,3 +1,15 @@
+v0.3.1
+======
+
+- Total issues resolved: **0**
+- Total pull requests resolved: **1**
+- Total contributors: **1**
+
+Fixed
+-----
+
+ - [10: fixed load console command stub](https://github.com/narrowspark/skeleton-generators/pull/10) thanks to @prisis
+
 v0.3.0
 ======
 
