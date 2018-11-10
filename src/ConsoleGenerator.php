@@ -60,10 +60,10 @@ class ConsoleGenerator extends AbstractGenerator
         $files = \array_merge(
             $this->getBasicFiles(),
             [
-                $this->folderPaths['routes'] . \DIRECTORY_SEPARATOR . 'console.php'           => '<?php' . \PHP_EOL . 'declare(strict_types=1);' . \PHP_EOL,
-                $consolePath . 'Kernel.php'                                                   => $this->getConsoleKernelClass(),
-                $consolePath . 'Bootstrap' . \DIRECTORY_SEPARATOR . 'LoadConsoleCommand.php'  => $this->getLoadConsoleCommand(),
-                $this->folderPaths['config'] . \DIRECTORY_SEPARATOR . 'bootstrap.php'         => $this->getBootstrapContent(),
+                $this->folderPaths['routes'] . \DIRECTORY_SEPARATOR . 'console.php'          => '<?php' . \PHP_EOL . 'declare(strict_types=1);' . \PHP_EOL . \PHP_EOL . '/** @var \Viserio\Component\Console\Application $console */' . \PHP_EOL,
+                $consolePath . 'Kernel.php'                                                  => $this->getConsoleKernelClass(),
+                $consolePath . 'Bootstrap' . \DIRECTORY_SEPARATOR . 'LoadConsoleCommand.php' => $this->getLoadConsoleCommand(),
+                $this->folderPaths['config'] . \DIRECTORY_SEPARATOR . 'bootstrap.php'        => $this->getBootstrapContent(),
             ]
         );
 
