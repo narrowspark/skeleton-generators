@@ -2,10 +2,10 @@
 declare(strict_types=1);
 namespace App\Console\Bootstrap;
 
+use Viserio\Component\Console\Application;
 use Viserio\Component\Contract\Foundation\BootstrapState as BootstrapStateContract;
 use Viserio\Component\Contract\Foundation\Kernel as KernelContract;
 use Viserio\Component\Foundation\Bootstrap\LoadServiceProvider;
-use Viserio\Component\Foundation\Console\Kernel;
 
 class LoadConsoleCommand implements BootstrapStateContract
 {
@@ -38,7 +38,7 @@ class LoadConsoleCommand implements BootstrapStateContract
      */
     public static function bootstrap(KernelContract $kernel): void
     {
-        $console = $kernel->getContainer()->get(Kernel::class);
+        $console = $kernel->getContainer()->get(Application::class);
 
         require $kernel->getRoutesPath('console.php');
     }
