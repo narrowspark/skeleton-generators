@@ -1,3 +1,15 @@
+v0.3.2
+======
+
+- Total issues resolved: **0**
+- Total pull requests resolved: **1**
+- Total contributors: **1**
+
+Changed
+-------
+
+ - [12: added helpful var docs to the routes files](https://github.com/narrowspark/skeleton-generators/pull/12) thanks to @prisis
+
 v0.3.1
 ======
 
