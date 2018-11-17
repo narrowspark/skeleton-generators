@@ -16,7 +16,7 @@ class LoadRoutes implements BootstrapStateContract
      *
      * @var string
      */
-    protected static $namespace = 'App\Http\Controllers';
+    protected static $namespace = 'App\Http\Controller';
 
     /**
      * {@inheritdoc}
