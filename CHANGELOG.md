@@ -1,3 +1,15 @@
+v0.3.3
+======
+
+- Total issues resolved: **0**
+- Total pull requests resolved: **1**
+- Total contributors: **1**
+
+Fixed
+-----
+
+ - [14: fixed namespaces in AbstractController and LoadRoutes](https://github.com/narrowspark/skeleton-generators/pull/14) thanks to @prisis
+
 v0.3.2
 ======
 
