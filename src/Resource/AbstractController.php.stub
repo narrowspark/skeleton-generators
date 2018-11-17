@@ -2,7 +2,7 @@
 declare(strict_types=1);
 namespace App\Http\Controller;
 
-use Viserio\Component\Routing\Controller as BaseController;
+use Viserio\Component\Routing\AbstractController as BaseController;
 
 abstract class AbstractController extends BaseController
 {
