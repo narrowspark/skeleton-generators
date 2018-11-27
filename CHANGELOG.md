@@ -1,3 +1,20 @@
+v0.4.0
+======
+
+- Total issues resolved: **2**
+- Total pull requests resolved: **0**
+- Total contributors: **1**
+
+Added
+-----
+
+ - [18: create better narrowspark experience](https://github.com/narrowspark/skeleton-generators/issues/18) thanks to @prisis
+
+Changed
+-------
+
+ - [17: change web.php route to the new viserio/routing behavior](https://github.com/narrowspark/skeleton-generators/issues/17) thanks to @prisis
+
 v0.3.3
 ======
 
