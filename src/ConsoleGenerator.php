@@ -20,6 +20,8 @@ class ConsoleGenerator extends AbstractGenerator
         return [
             'viserio/config'     => 'dev-master',
             'viserio/foundation' => 'dev-master',
+            'viserio/log'        => 'dev-master',
+            'viserio/exception'  => 'dev-master',
         ];
     }
 

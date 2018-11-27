@@ -7,7 +7,7 @@ use Viserio\Component\Http\Response\HtmlResponse;
 
 /** @var \Viserio\Component\Routing\Router $router */
 
-$router->get('/', function (ServerRequestInterface $request, array $data, ContainerInterface $container) {
+$router->get('/', function (ServerRequestInterface $request, ContainerInterface $container) {
     $view = $container->get('view');
 
     return new HtmlResponse((string) $view->create('welcome', ['lang' => 'en']));
