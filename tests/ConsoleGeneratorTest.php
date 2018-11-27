@@ -46,6 +46,8 @@ final class ConsoleGeneratorTest extends AbstractGeneratorTest
             [
                 'viserio/config'     => 'dev-master',
                 'viserio/foundation' => 'dev-master',
+                'viserio/log'        => 'dev-master',
+                'viserio/exception'  => 'dev-master',
             ],
             $this->generator->getDependencies()
         );

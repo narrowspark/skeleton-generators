@@ -46,6 +46,8 @@ final class MicroGeneratorTest extends AbstractGeneratorTest
             [
                 'viserio/config'           => 'dev-master',
                 'viserio/foundation'       => 'dev-master',
+                'viserio/log'              => 'dev-master',
+                'viserio/exception'        => 'dev-master',
                 'cakephp/chronos'          => '^1.0.4',
                 'narrowspark/http-emitter' => '^0.7.0',
                 'viserio/http-foundation'  => 'dev-master',
