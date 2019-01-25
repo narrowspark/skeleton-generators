@@ -29,6 +29,19 @@ final class MicroGenerator extends ConsoleGenerator
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function generate(): void
+    {
+        parent::generate();
+
+        $this->filesystem->copy(
+            $this->resourcePath . \DIRECTORY_SEPARATOR . 'favicon.ico',
+            $this->folderPaths['public'] . \DIRECTORY_SEPARATOR . 'favicon.ico'
+        );
+    }
+
+    /**
      * Returns all directories that should be generated.
      *
      * @return string[]

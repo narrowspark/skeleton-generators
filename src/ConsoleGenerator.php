@@ -37,6 +37,24 @@ class ConsoleGenerator extends AbstractGenerator
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function generate(): void
+    {
+        parent::generate();
+
+        if (! self::$isTest) {
+            $target = 'cerebro';
+
+            $this->filesystem->copy(
+                $this->resourcePath . \DIRECTORY_SEPARATOR . 'cerebro.stub',
+                $target
+            );
+            $this->filesystem->chmod($target, 0755);
+        }
+    }
+
+    /**
      * Returns all directories that should be generated.
      *
      * @return array
@@ -71,7 +89,6 @@ class ConsoleGenerator extends AbstractGenerator
 
         if (! self::$isTest) {
             $files['.env.dist'] = '';
-            $files['cerebro']   = \file_get_contents($this->resourcePath . \DIRECTORY_SEPARATOR . 'cerebro.stub');
         }
 
         return $files;
