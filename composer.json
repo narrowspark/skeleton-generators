@@ -31,7 +31,7 @@
         "narrowspark/automatic-common": "^0.12.0",
         "narrowspark/coding-standard": "^1.4.0",
         "narrowspark/testing-helper": "^7.0.0",
-        "phpunit/phpunit": "^7.2.0"
+        "phpunit/phpunit": "^8.4.2"
     },
     "config": {
         "optimize-autoloader": true,
