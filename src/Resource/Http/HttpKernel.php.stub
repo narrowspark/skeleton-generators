@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace App\Http;
 
 use Viserio\Component\HttpFoundation\Kernel as HttpKernel;

@@ -1,6 +1,21 @@
 <?php
+
 declare(strict_types=1);
+
+/**
+ * This file is part of Narrowspark Framework.
+ *
+ * (c) Daniel Bannert <d.bannert@anolilab.de>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Narrowspark\Skeleton\Generator;
+
+use const DIRECTORY_SEPARATOR;
+use function array_merge;
+use function file_get_contents;
 
 class ConsoleGenerator extends AbstractGenerator
 {
@@ -18,10 +33,10 @@ class ConsoleGenerator extends AbstractGenerator
     public function getDependencies(): array
     {
         return [
-            'viserio/config'     => 'dev-master',
+            'viserio/config' => 'dev-master',
             'viserio/foundation' => 'dev-master',
-            'viserio/log'        => 'dev-master',
-            'viserio/exception'  => 'dev-master',
+            'viserio/log' => 'dev-master',
+            'viserio/exception' => 'dev-master',
         ];
     }
 
@@ -32,7 +47,7 @@ class ConsoleGenerator extends AbstractGenerator
     {
         return [
             'vlucas/phpdotenv' => '^2.5.0',
-            'phpunit/phpunit'  => '^7.2.0',
+            'phpunit/phpunit' => '^7.2.0',
         ];
     }
 
@@ -47,7 +62,7 @@ class ConsoleGenerator extends AbstractGenerator
             $target = 'cerebro';
 
             $this->filesystem->copy(
-                $this->resourcePath . \DIRECTORY_SEPARATOR . 'cerebro.stub',
+                $this->resourcePath . DIRECTORY_SEPARATOR . 'Console' . DIRECTORY_SEPARATOR . 'cerebro.stub',
                 $target
             );
             $this->filesystem->chmod($target, 0755);
@@ -57,15 +72,15 @@ class ConsoleGenerator extends AbstractGenerator
     /**
      * Returns all directories that should be generated.
      *
-     * @return array
+     * @return string[]
      */
     protected function getDirectories(): array
     {
-        return \array_merge(
+        return array_merge(
             $this->getBasicDirectories(),
             [
-                $this->folderPaths['app'] . \DIRECTORY_SEPARATOR . 'Console',
-                $this->folderPaths['app'] . \DIRECTORY_SEPARATOR . 'Console' . \DIRECTORY_SEPARATOR . 'Bootstrap',
+                $this->folderPaths['app'] . DIRECTORY_SEPARATOR . 'Console',
+                $this->folderPaths['app'] . DIRECTORY_SEPARATOR . 'Console' . DIRECTORY_SEPARATOR . 'Bootstrap',
             ]
         );
     }
@@ -75,15 +90,15 @@ class ConsoleGenerator extends AbstractGenerator
      */
     protected function getFiles(): array
     {
-        $consolePath = $this->folderPaths['app'] . \DIRECTORY_SEPARATOR . 'Console' . \DIRECTORY_SEPARATOR;
+        $consolePath = $this->folderPaths['app'] . DIRECTORY_SEPARATOR . 'Console' . DIRECTORY_SEPARATOR;
 
-        $files = \array_merge(
+        $files = array_merge(
             $this->getBasicFiles(),
             [
-                $this->folderPaths['routes'] . \DIRECTORY_SEPARATOR . 'console.php'          => '<?php' . \PHP_EOL . 'declare(strict_types=1);' . \PHP_EOL . \PHP_EOL . '/** @var \Viserio\Component\Console\Application $console */' . \PHP_EOL,
-                $consolePath . 'Kernel.php'                                                  => $this->getConsoleKernelClass(),
-                $consolePath . 'Bootstrap' . \DIRECTORY_SEPARATOR . 'LoadConsoleCommand.php' => $this->getLoadConsoleCommand(),
-                $this->folderPaths['config'] . \DIRECTORY_SEPARATOR . 'bootstrap.php'        => $this->getBootstrapContent(),
+                $this->folderPaths['routes'] . DIRECTORY_SEPARATOR . 'console.php' => '<?php' . "\n" . 'declare(strict_types=1);' . "\n\n" . '/** @var \Viserio\Component\Console\Application $console */' . "\n",
+                $consolePath . 'Kernel.php' => $this->getConsoleKernelClass(),
+                $consolePath . 'Bootstrap' . DIRECTORY_SEPARATOR . 'LoadConsoleCommand.php' => $this->getLoadConsoleCommand(),
+                $this->folderPaths['config'] . DIRECTORY_SEPARATOR . 'bootstrap.php' => $this->getBootstrapContent(),
             ]
         );
 
@@ -101,7 +116,7 @@ class ConsoleGenerator extends AbstractGenerator
      */
     protected function getBootstrapContent(): string
     {
-        return '<?php' . \PHP_EOL . 'declare(strict_types=1);' . \PHP_EOL . \PHP_EOL . 'return [' . \PHP_EOL . '    /** > app/bootstrap **/' . \PHP_EOL . '    \App\Console\Bootstrap::class => [\'console\'],' . \PHP_EOL . '    /** app/bootstrap < **/' . \PHP_EOL . '];' . \PHP_EOL;
+        return '<?php' . "\n" . 'declare(strict_types=1);' . "\n\n" . 'return [' . "\n" . '    /** > app/bootstrap **/' . "\n" . '    \App\Console\Bootstrap::class => [\'console\'],' . "\n" . '    /** app/bootstrap < **/' . "\n" . '];' . "\n";
     }
 
     /**
@@ -111,7 +126,7 @@ class ConsoleGenerator extends AbstractGenerator
      */
     private function getConsoleKernelClass(): string
     {
-        return (string) \file_get_contents($this->resourcePath . \DIRECTORY_SEPARATOR . 'ConsoleKernel.php.stub');
+        return (string) file_get_contents($this->resourcePath . DIRECTORY_SEPARATOR . 'Console' . DIRECTORY_SEPARATOR . 'ConsoleKernel.php.stub');
     }
 
     /**
@@ -121,6 +136,6 @@ class ConsoleGenerator extends AbstractGenerator
      */
     private function getLoadConsoleCommand(): string
     {
-        return (string) \file_get_contents($this->resourcePath . \DIRECTORY_SEPARATOR . 'LoadConsoleCommand.php.stub');
+        return (string) file_get_contents($this->resourcePath . DIRECTORY_SEPARATOR . 'Console' . DIRECTORY_SEPARATOR . 'LoadConsoleCommand.php.stub');
     }
 }

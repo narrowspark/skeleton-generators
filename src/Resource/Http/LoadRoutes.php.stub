@@ -1,0 +1,92 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Http\Bootstrap;
+
+use Viserio\Component\Container\Definition\ReferenceDefinition;
+use Viserio\Contract\Foundation\BootstrapState as BootstrapStateContract;
+use Viserio\Contract\Foundation\Kernel as KernelContract;
+use Viserio\Contract\Routing\Router as RouterContract;
+use Viserio\Component\Foundation\Bootstrap\LoadServiceProviderBootstrap;
+
+class LoadRoutes implements BootstrapStateContract
+{
+    /**
+     * This namespace is applied to your controller routes.
+     *
+     * In addition, it is set as the URL generator's root namespace.
+     *
+     * @var string
+     */
+    protected static $namespace = 'App\Http\Controller';
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getPriority(): int
+    {
+        return 64;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getType(): string
+    {
+        return BootstrapStateContract::TYPE_AFTER;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getBootstrapper(): string
+    {
+        return LoadServiceProviderBootstrap::class;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function isSupported(KernelContract $kernel): bool
+    {
+        $isNotBootstrapped = ! $kernel->isBootstrapped();
+
+        return ($isNotBootstrapped && $kernel->getEnvironment() === 'prod') || $isNotBootstrapped;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function bootstrap(KernelContract $kernel): void
+    {
+        $routerDefinition = $kernel->getContainerBuilder()->getDefinition(RouterContract::class);
+
+        // Define the "api" routes for the application.
+        // These routes are typically stateless.
+        $routerDefinition->addMethodCall(
+            'group',
+            [
+                [
+                    'middlewares' => 'api',
+                    'namespace'   => self::$namespace,
+                    'prefix'      => 'api',
+                ],
+                (new ReferenceDefinition(KernelContract::class))->addMethodCall('getRoutesPath', ['api.php'])
+            ]
+        );
+
+        // Define the "web" routes for the application.
+        // These routes all receive session state, CSRF protection, etc.
+        $routerDefinition->addMethodCall(
+            'group',
+            [
+                [
+                    'middlewares' => 'web',
+                    'namespace'   => self::$namespace,
+                ],
+                (new ReferenceDefinition(KernelContract::class))->addMethodCall('getRoutesPath', ['web.php'])
+            ]
+        );
+    }
+}

@@ -81,11 +81,8 @@ Generators
 #### - Console
 The `Console Generator` is a micro-framework that provides an elegant starting point for your console application.
 
-#### - Framework
-The `Framework Generator` provides a full framework for your next web projects.
-
-#### - Micro
-The `Micro Generator` is a micro-framework that provides an elegant starting point for your next web application.
+#### - Http
+The `Http Generator` is a micro-framework that provides an elegant starting point for your next web application.
 
 Testing
 -------------
