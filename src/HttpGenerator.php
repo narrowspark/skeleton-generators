@@ -16,8 +16,8 @@ namespace Narrowspark\Skeleton\Generator;
 use const DIRECTORY_SEPARATOR;
 use function array_merge;
 use function file_get_contents;
-use function mb_strpos;
-use function mb_substr;
+use function strpos;
+use function substr;
 
 class HttpGenerator extends ConsoleGenerator
 {
@@ -119,7 +119,7 @@ class HttpGenerator extends ConsoleGenerator
         $phpunitContent = (string) file_get_contents($this->resourcePath . DIRECTORY_SEPARATOR . 'Common' . DIRECTORY_SEPARATOR . 'phpunit.xml.stub');
         $feature = "        <testsuite name=\"Feature\">\n            <directory suffix=\"Test.php\">./tests/Feature</directory>\n        </testsuite>\n";
 
-        return $this->doInsertStringBeforePosition($phpunitContent, $feature, (int) mb_strpos($phpunitContent, '</testsuites>'));
+        return $this->doInsertStringBeforePosition($phpunitContent, $feature, (int) strpos($phpunitContent, '</testsuites>'));
     }
 
     /**
@@ -141,7 +141,7 @@ class HttpGenerator extends ConsoleGenerator
      */
     private function doInsertStringBeforePosition(string $string, string $insertStr, int $position): string
     {
-        return mb_substr($string, 0, $position) . $insertStr . mb_substr($string, $position);
+        return substr($string, 0, $position) . $insertStr . substr($string, $position);
     }
 
     /**
