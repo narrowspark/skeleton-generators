@@ -1,7 +1,7 @@
 <h1 align="center">Narrowspark Skeleton Generators</h1>
 <p align="center">
     <a href="https://github.com/narrowspark/skeleton-generators/releases"><img src="https://img.shields.io/packagist/v/narrowspark/skeleton-generators.svg?style=flat-square"></a>
-    <a href="https://php.net/"><img src="https://img.shields.io/badge/php-%5E7.2.0-8892BF.svg?style=flat-square"></a>
+    <a href="https://php.net/"><img src="https://img.shields.io/badge/php-%5E7.3.0-8892BF.svg?style=flat-square"></a>
     <a href="https://codecov.io/gh/narrowspark/skeleton-generators"><img src="https://img.shields.io/codecov/c/github/narrowspark/skeleton-generators/master.svg?style=flat-square"></a>
     <a href="#"><img src="https://img.shields.io/badge/style-level%207-brightgreen.svg?style=flat-square&label=phpstan"></a>
     <a href="http://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square"></a>
@@ -15,7 +15,7 @@ Branch Status
 Installation
 -------------
 
-> **Note:** This package can be only used with [automatic](https://github.com/narrowspark/automatic).
+> **Note:** this package can be only used with [automatic](https://github.com/narrowspark/automatic).
 
 Use [Composer](https://getcomposer.org/) to install this package:
 
@@ -26,8 +26,9 @@ composer require narrowspark/skeleton-generators
 Default Directories
 -------------
 Narrowspark automatically ships with a default directory structure. 
-You can easily override this directory structure to create your own. 
-The default directory structure is:
+You can easily override this directory structure to create your own.
+
+The default directory structure is.
 
 ```markdown
 your-project/
@@ -58,7 +59,7 @@ your-project/
     └─ vendor/
 ```
 ### Override the Directories
-You can change the default directories by overriding the composer extra section of your application:
+You can change the default directories by overriding the composer extra section of your app:
 ```json
 {
   "extra": {
@@ -73,16 +74,16 @@ You can change the default directories by overriding the composer extra section 
   }
 }
 ```
-The `root-dir` key should be only used if your project is in a sub folder of your main project.
+The `root-dir` key may be only used if your project is in a sub folder of your main project.
 
 Generators
 -------------
 
 #### - Console
-The `Console Generator` is a micro-framework that provides an elegant starting point for your console application.
+The `Console Generator` is a micro-framework that provides an elegant starting point for your console app.
 
 #### - Http
-The `Http Generator` is a micro-framework that provides an elegant starting point for your next web application.
+The `Http Generator` is a micro-framework that provides an elegant starting point for your next web app.
 
 Testing
 -------------
@@ -95,15 +96,15 @@ $ php vendor/bin/phpunit
 Contributing
 ------------
 
-If you would like to help take a look at the [list of issues](http://github.com/narrowspark/testing-helper/issues) and check our [Contributing](CONTRIBUTING.md) guild.
+If you would like to help take a look at the [list of issues](https://github.com/narrowspark/testing-helper/issues) and check our [Contributing](CONTRIBUTING.md) guild.
 
-> **Note:** Please note that this project is released with a Contributor Code of Conduct. By participating in this project you agree to abide by its terms.
+> **Note:** please note that this project is released with a Contributor Code of Conduct. By participating in this project you agree to abide by its terms.
 
 Credits
 -------------
 
 - [Daniel Bannert](https://github.com/prisis)
-- [All Contributors](../../contributors)
+- [All Contributors](https://github.com/narrowspark/automatic/graphs/contributors)
 
 License
 -------------
