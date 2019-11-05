@@ -27,7 +27,7 @@
     },
     "require-dev": {
         "cakephp/chronos": "^1.2.2",
-        "mockery/mockery": "^1.1.0",
+        "mockery/mockery": "^1.2.4",
         "narrowspark/automatic-common": "dev-master",
         "narrowspark/coding-standard": "^3.2.0",
         "narrowspark/testing-helper": "^8.0.2",
