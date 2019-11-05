@@ -1,11 +1,13 @@
 <?php
+
 declare(strict_types=1);
+
 namespace App\Console\Bootstrap;
 
 use Viserio\Component\Console\Application;
-use Viserio\Component\Contract\Foundation\BootstrapState as BootstrapStateContract;
-use Viserio\Component\Contract\Foundation\Kernel as KernelContract;
-use Viserio\Component\Foundation\Bootstrap\LoadServiceProvider;
+use Viserio\Contract\Foundation\BootstrapState as BootstrapStateContract;
+use Viserio\Contract\Foundation\Kernel as KernelContract;
+use Viserio\Component\Foundation\Bootstrap\InitializeContainerBootstrap;
 
 class LoadConsoleCommand implements BootstrapStateContract
 {
@@ -30,7 +32,17 @@ class LoadConsoleCommand implements BootstrapStateContract
      */
     public static function getBootstrapper(): string
     {
-        return LoadServiceProvider::class;
+        return InitializeContainerBootstrap::class;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function isSupported(KernelContract $kernel): bool
+    {
+        $isNotBootstrapped = ! $kernel->isBootstrapped();
+
+        return ($isNotBootstrapped && $kernel->getEnvironment() === 'prod') || $isNotBootstrapped;
     }
 
     /**
