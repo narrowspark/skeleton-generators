@@ -1,3 +1,31 @@
+v0.5.0
+======
+
+- Total issues resolved: **3**
+- Total pull requests resolved: **2**
+- Total contributors: **1**
+
+Added
+-----
+
+ - [37: Add github actions](https://github.com/narrowspark/skeleton-generators/issues/37) thanks to @prisis
+
+Changed
+-------
+
+ - [40: update deps of console and http generators](https://github.com/narrowspark/skeleton-generators/pull/40) thanks to @prisis
+ - [39: Upgrade php version from 7.2 to 7.3](https://github.com/narrowspark/skeleton-generators/issues/39) thanks to @prisis
+
+Changed,Removed
+---------------
+
+ - [38: Remove Micro and Rename Framework To Http](https://github.com/narrowspark/skeleton-generators/issues/38) thanks to @prisis
+
+Fixed
+-----
+
+ - [35: fixed github actions for markdown lint and php-cs-fixer](https://github.com/narrowspark/skeleton-generators/pull/35) thanks to @prisis
+
 v0.4.0
 ======
 
