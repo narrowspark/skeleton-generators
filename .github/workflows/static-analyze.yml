@@ -1,4 +1,4 @@
-name: 'PHP Static Analyze'
+name: "PHP Static Analyze"
 
 on:
   push:
