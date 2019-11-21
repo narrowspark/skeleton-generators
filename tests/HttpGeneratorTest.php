@@ -63,7 +63,7 @@ final class HttpGeneratorTest extends AbstractGeneratorTest
                 'viserio/foundation' => 'dev-master',
                 'viserio/log' => 'dev-master',
                 'viserio/exception' => 'dev-master',
-                'cakephp/chronos' => '^1.2.2',
+                'cakephp/chronos' => '^1.2.8',
                 'narrowspark/http-emitter' => '^1.0.0',
                 'viserio/http-foundation' => 'dev-master',
                 'viserio/view' => 'dev-master',

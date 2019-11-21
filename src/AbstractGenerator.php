@@ -147,12 +147,12 @@ abstract class AbstractGenerator extends BaseAbstractConfigurator
 
         if (class_exists(Chronos::class)) {
             $fileContent .= <<<'PHP'
-                \Cake\Chronos\Chronos::setTestNow(Chronos::now());
-                \Cake\Chronos\MutableDateTime::setTestNow(MutableDateTime::now());
-                \Cake\Chronos\Date::setTestNow(Date::now());
-                \Cake\Chronos\MutableDate::setTestNow(MutableDate::now());
+\Cake\Chronos\Chronos::setTestNow(Chronos::now());
+\Cake\Chronos\MutableDateTime::setTestNow(MutableDateTime::now());
+\Cake\Chronos\Date::setTestNow(Date::now());
+\Cake\Chronos\MutableDate::setTestNow(MutableDate::now());
 
-                PHP;
+PHP;
         }
 
         return $fileContent;
