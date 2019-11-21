@@ -46,8 +46,8 @@ class ConsoleGenerator extends AbstractGenerator
     public function getDevDependencies(): array
     {
         return [
-            'vlucas/phpdotenv' => '^2.5.0',
-            'phpunit/phpunit' => '^7.2.0',
+            'vlucas/phpdotenv' => '^3.6.0',
+            'phpunit/phpunit' => '^8.4.3',
         ];
     }
 

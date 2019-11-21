@@ -37,7 +37,7 @@ class HttpGenerator extends ConsoleGenerator
         return array_merge(
             parent::getDependencies(),
             [
-                'cakephp/chronos' => '^1.2.2',
+                'cakephp/chronos' => '^1.2.8',
                 'narrowspark/http-emitter' => '^1.0.0',
                 'viserio/http-foundation' => 'dev-master',
                 'viserio/view' => 'dev-master',

@@ -72,8 +72,8 @@ final class ConsoleGeneratorTest extends AbstractGeneratorTest
     {
         self::assertSame(
             [
-                'vlucas/phpdotenv' => '^2.5.0',
-                'phpunit/phpunit' => '^7.2.0',
+                'vlucas/phpdotenv' => '^3.6.0',
+                'phpunit/phpunit' => '^8.4.3',
             ],
             $this->generator->getDevDependencies()
         );
