@@ -1,3 +1,15 @@
+v0.5.1
+======
+
+- Total issues resolved: **0**
+- Total pull requests resolved: **1**
+- Total contributors: **1**
+
+Changed
+-------
+
+ - [41: feat : changed string call to interface](https://github.com/narrowspark/skeleton-generators/pull/41) thanks to @prisis
+
 v0.5.0
 ======
 
